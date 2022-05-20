@@ -181,6 +181,7 @@ class Provider(kodion.AbstractProvider):
                  'youtube.video.comments.likes': 30733,
                  'youtube.video.comments.replies': 30734,
                  'youtube.video.comments.edited': 30735,
+                 'youtube.video.descriptions': 30736,
                  }
 
     def __init__(self):
