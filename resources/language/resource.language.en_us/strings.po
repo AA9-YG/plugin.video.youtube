@@ -1231,3 +1231,7 @@ msgstr ""
 msgctxt "#30735"
 msgid "Edited"
 msgstr ""
+
+msgctxt "#30736"
+msgid "Video Description"
+msgstr ""
