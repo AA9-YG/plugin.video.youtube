@@ -345,7 +345,7 @@ msgid "Popular right now"
 msgstr ""
 
 msgctxt "#30514"
-msgid "Similar Videos"
+msgid "Related Videos"
 msgstr ""
 
 msgctxt "#30515"
