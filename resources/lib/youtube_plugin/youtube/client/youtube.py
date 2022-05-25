@@ -622,7 +622,7 @@ class YouTube(LoginClient):
                   'part': 'snippet',
                   'type': 'video',
                   'regionCode': self._region,
-                  'hl': self._language,
+                  'hl': 'Hello',
                   'maxResults': str(max_results)}
         if page_token:
             params['pageToken'] = page_token
