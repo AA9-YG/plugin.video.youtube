@@ -107,8 +107,8 @@ def _process_more_for_video(provider, context):
                    'Container.Update(%s)' % context.create_uri(['special', 'parent_comments'], {'video_id': video_id})),
                   (context.localize(provider.LOCAL_MAP['youtube.video.description.links']),
                    'Container.Update(%s)' % context.create_uri(['special', 'description_links'], {'video_id': video_id})),
-                  (context.localize(provider.LOCAL_MAP['youtube.video.descriptions']),
-                   'Container.Update(%s)' % context.create_uri(['special', 'related_videos'], {'video_id': video_id})),])
+                  (context.localize(provider.LOCAL_MAP['youtube.related_videos']),
+                   'Container.Update(%s)' % context.create_uri(['special', 'parent_comments'], {'video_id': video_id})),])
 
     if is_logged_in == '1':
         # rate a video
