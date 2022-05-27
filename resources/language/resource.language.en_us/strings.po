@@ -461,11 +461,11 @@ msgid "rtmpe streams are not supported"
 msgstr ""
 
 msgctxt "#30543"
-msgid "Refresh"
+msgid "Refresh Page"
 msgstr ""
 
 msgctxt "#30544"
-msgid "More Links from the description"
+msgid "Links from Description"
 msgstr ""
 
 msgctxt "#30545"
@@ -481,7 +481,7 @@ msgid "You must enable two applications so that YouTube is functioning properly.
 msgstr ""
 
 msgctxt "#30548"
-msgid "More..."
+msgid "More Play Options"
 msgstr ""
 
 msgctxt "#30549"
@@ -965,11 +965,11 @@ msgid "Play count minimum percent"
 msgstr ""
 
 msgctxt "#30669"
-msgid "Mark unwatched"
+msgid "Mark as unwatched"
 msgstr ""
 
 msgctxt "#30670"
-msgid "Mark watched"
+msgid "Mark as watched"
 msgstr ""
 
 msgctxt "#30671"
