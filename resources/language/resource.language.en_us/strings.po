@@ -482,7 +482,7 @@ msgstr ""
 
 msgctxt "#30548"
 msgid "More Play Options"
-msgstr ""
+msgstr "More Play Options"
 
 msgctxt "#30549"
 msgid "No videos streams found"
