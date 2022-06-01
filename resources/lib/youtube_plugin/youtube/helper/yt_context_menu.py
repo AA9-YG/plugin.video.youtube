@@ -21,10 +21,11 @@ def append_more_for_video(context_menu, provider, context, video_id, is_logged_i
         _refresh_container = '1'
 
     context_menu.append((context.localize(provider.LOCAL_MAP['youtube.video.more']),
-                         'RunPlugin(%s)' % context.create_uri(['video'],
+                         'RunPlugin(%s)' % context.create_uri(['video', 'more'],
                                                               {'video_id': video_id,
                                                                'logged_in': _is_logged_in,
-                                                               'refresh_container': _refresh_container})))
+                                                               'refresh_container': _refresh_container,
+                                                               'h1': 'More Play Options'})))
 
 
 def append_content_from_description(context_menu, provider, context, video_id):
