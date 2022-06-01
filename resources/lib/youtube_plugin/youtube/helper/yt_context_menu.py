@@ -24,8 +24,7 @@ def append_more_for_video(context_menu, provider, context, video_id, is_logged_i
                          'RunPlugin(%s)' % context.create_uri(['video', 'more'],
                                                               {'video_id': video_id,
                                                                'logged_in': _is_logged_in,
-                                                               'refresh_container': _refresh_container,
-                                                               'title': 'More Play Options'})))
+                                                               'refresh_container': _refresh_container})))
 
 
 def append_content_from_description(context_menu, provider, context, video_id):
