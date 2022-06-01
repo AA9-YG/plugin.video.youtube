@@ -117,7 +117,7 @@ def _process_more_for_video(provider, context):
                       'RunPlugin(%s)' % context.create_uri(['video', 'rate'], {'video_id': video_id,
                                                                                'refresh_container': refresh_container})))
 
-    result = context.get_ui().on_select(context.localize(provider.LOCAL_MAP['youtube.video.more']), items)
+    result = context.get_ui().on_select(context.localize(provider.LOCAL_MAP['youtube.video.more'], 'More Play Options'), items)
     if result != -1:
         context.execute(result)
 
