@@ -25,7 +25,7 @@ def append_more_for_video(context_menu, provider, context, video_id, is_logged_i
                                                               {'video_id': video_id,
                                                                'logged_in': _is_logged_in,
                                                                'refresh_container': _refresh_container,
-                                                               'h1': 'More Play Options'})))
+                                                               'title': 'More Play Options'})))
 
 
 def append_content_from_description(context_menu, provider, context, video_id):
