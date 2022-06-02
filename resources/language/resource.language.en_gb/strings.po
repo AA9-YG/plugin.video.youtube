@@ -488,8 +488,8 @@ msgid "You must enable two applications so that YouTube is functioning properly.
 msgstr ""
 
 msgctxt "#30548"
-msgid "More..."
-msgstr ""
+msgid "More Play Options"
+msgstr "More Play Options"
 
 msgctxt "#30549"
 msgid "No videos streams found"
