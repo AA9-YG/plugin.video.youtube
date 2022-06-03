@@ -473,7 +473,7 @@ msgstr ""
 
 msgctxt "#30544"
 msgid "Links From Description"
-msgstr ""
+msgstr "Links From Description"
 
 msgctxt "#30545"
 msgid "No further links found."
@@ -973,11 +973,11 @@ msgstr ""
 
 msgctxt "#30669"
 msgid "Mark As Unwatched"
-msgstr ""
+msgstr "Mark As Unnwatched"
 
 msgctxt "#30670"
 msgid "Mark As Watched"
-msgstr ""
+msgstr "Mark As Watched"
 
 msgctxt "#30671"
 msgid "Clear playback history"
