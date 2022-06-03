@@ -374,6 +374,18 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
 
         # Queue Video
         yt_context_menu.append_queue_video(context_menu, provider, context)
+        
+        # Video Description
+        yt_context_menu.append((context.localize(provider.LOCAL_MAP['youtube.video.descriptions']),
+                   'Container.Update(%s)' % context.create_uri(['special', 'related_videos'], {'video_id': video_id})))
+        
+        # Comments
+        yt_context_menu.append((context.localize(provider.LOCAL_MAP['youtube.video.comments']),
+                   'Container.Update(%s)' % context.create_uri(['special', 'parent_comments'], {'video_id': video_id})))
+        
+        # Related Videos
+        yt_context_menu.append((context.localize(provider.LOCAL_MAP['youtube.related_videos']),
+                   'Container.Update(%s)' % context.create_uri(['special', 'related_videos'], {'video_id': video_id})))
 
         """
         Play all videos of the playlist.
@@ -441,6 +453,10 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
             if int(play_data.get('played_percent', '0')) > 0 or float(play_data.get('played_time', '0.0')) > 0.0:
                 yt_context_menu.append_reset_resume_point(context_menu, provider, context, video_id)
 
+        # links from description        
+        yt_context_menu.append((context.localize(provider.LOCAL_MAP['youtube.video.description.links']),
+                   'Container.Update(%s)' % context.create_uri(['special', 'description_links'], {'video_id': video_id})))        
+                
         # more...
         refresh_container = \
             context.get_path().startswith('/channel/mine/playlist/LL') or \
