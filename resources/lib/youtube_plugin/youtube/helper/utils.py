@@ -238,8 +238,8 @@ def update_playlist_infos(provider, context, playlist_id_dict, channel_items_dic
 
 
 def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=None, channel_items_dict=None, live_details=False, use_play_data=True):
-    video_id = context.get_param('video_id', '')
-    if not video_id:
+    vid_id = context.get_param('video_id', '')
+    if not vid_id:
         raise kodion.KodionException('video/: missing video_id')
     settings = context.get_settings()
     ui = context.get_ui()
@@ -381,15 +381,15 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
         
         # Video Description
         yt_context_menu.append((context.localize(provider.LOCAL_MAP['youtube.video.descriptions']),
-                   'Container.Update(%s)' % context.create_uri(['special', 'related_videos'], {'video_id': video_id})))
+                   'Container.Update(%s)' % context.create_uri(['special', 'related_videos'], {'video_id': vid_id})))
         
         # Comments
         yt_context_menu.append((context.localize(provider.LOCAL_MAP['youtube.video.comments']),
-                   'Container.Update(%s)' % context.create_uri(['special', 'parent_comments'], {'video_id': video_id})))
+                   'Container.Update(%s)' % context.create_uri(['special', 'parent_comments'], {'video_id': vid_id})))
         
         # Related Videos
         yt_context_menu.append((context.localize(provider.LOCAL_MAP['youtube.related_videos']),
-                   'Container.Update(%s)' % context.create_uri(['special', 'related_videos'], {'video_id': video_id})))
+                   'Container.Update(%s)' % context.create_uri(['special', 'related_videos'], {'video_id': vid_id})))
 
         """
         Play all videos of the playlist.
@@ -459,7 +459,7 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
 
         # links from description        
         yt_context_menu.append((context.localize(provider.LOCAL_MAP['youtube.video.description.links']),
-                   'Container.Update(%s)' % context.create_uri(['special', 'description_links'], {'video_id': video_id})))        
+                   'Container.Update(%s)' % context.create_uri(['special', 'description_links'], {'video_id': vid_id})))        
                 
         # more...
         refresh_container = \
