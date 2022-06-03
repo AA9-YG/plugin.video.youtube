@@ -16,6 +16,7 @@ import time
 from ... import kodion
 from ...kodion import utils
 from ...youtube.helper import yt_context_menu
+from ...youtube.helper import v3
 
 try:
     import inputstreamhelper
