@@ -304,7 +304,7 @@ msgid "Playlists"
 msgstr ""
 
 msgctxt "#30502"
-msgid "Go to %s"
+msgid "Go To %s"
 msgstr ""
 
 msgctxt "#30503"
@@ -368,7 +368,7 @@ msgid "Subscribe to %s"
 msgstr ""
 
 msgctxt "#30518"
-msgid "Go to '%s'"
+msgid "Go To '%s'"
 msgstr ""
 
 msgctxt "#30519"
@@ -376,7 +376,7 @@ msgid "and enter the following code:"
 msgstr ""
 
 msgctxt "#30520"
-msgid "Add to..."
+msgid "Add To..."
 msgstr ""
 
 msgctxt "#30521"
@@ -992,7 +992,7 @@ msgid "playback history"
 msgstr ""
 
 msgctxt "#30674"
-msgid "Reset resume point"
+msgid "Reset Resume Point"
 msgstr ""
 
 msgctxt "#30675"
