@@ -238,6 +238,9 @@ def update_playlist_infos(provider, context, playlist_id_dict, channel_items_dic
 
 
 def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=None, channel_items_dict=None, live_details=False, use_play_data=True):
+    video_id = context.get_param('video_id', '')
+    if not video_id:
+        raise kodion.KodionException('video/: missing video_id')
     settings = context.get_settings()
     ui = context.get_ui()
 
