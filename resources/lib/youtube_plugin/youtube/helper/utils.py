@@ -370,7 +370,7 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
         replace_context_menu = False
 
         # Refresh
-        yt_context_menu.append_refresh(context_menu, provider, context)
+        #yt_context_menu.append_refresh(context_menu, provider, context)
 
         # Queue Video
         yt_context_menu.append_queue_video(context_menu, provider, context)
@@ -454,7 +454,10 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
             yt_context_menu.append_play_audio_only(context_menu, provider, context, video_id)
 
         yt_context_menu.append_play_ask_for_quality(context_menu, provider, context, video_id)
-
+        
+        # Refresh
+        yt_context_menu.append_refresh(context_menu, provider, context)
+       
         if len(context_menu) > 0:
             video_item.set_context_menu(context_menu, replace=replace_context_menu)
 
