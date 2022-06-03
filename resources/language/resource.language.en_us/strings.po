@@ -62,7 +62,7 @@ msgid "Always ask for the video quality"
 msgstr ""
 
 msgctxt "#30010"
-msgid "Video quality"
+msgid "Video Quality"
 msgstr ""
 
 msgctxt "#30011"
@@ -177,7 +177,7 @@ msgstr ""
 # Kodion Common
 # empty strings from id 30039 to 30099
 msgctxt "#30100"
-msgid "Favourites"
+msgid "Favorites"
 msgstr "Favorites"
 
 msgctxt "#30101"
@@ -333,7 +333,7 @@ msgid "My Subscriptions"
 msgstr ""
 
 msgctxt "#30511"
-msgid "Queue video"
+msgid "Queue Video"
 msgstr ""
 
 msgctxt "#30512"
@@ -413,7 +413,7 @@ msgid "I dislike this"
 msgstr ""
 
 msgctxt "#30531"
-msgid "Play all"
+msgid "Play All"
 msgstr ""
 
 msgctxt "#30532"
@@ -437,7 +437,7 @@ msgid "Updating Playlist..."
 msgstr ""
 
 msgctxt "#30537"
-msgid "Play from here"
+msgid "Play From Here"
 msgstr ""
 
 msgctxt "#30538"
@@ -449,7 +449,7 @@ msgid "Live"
 msgstr ""
 
 msgctxt "#30540"
-msgid "Play with..."
+msgid "Play With..."
 msgstr ""
 
 msgctxt "#30541"
@@ -609,7 +609,7 @@ msgid "MPEG-DASH is enabled in the YouTube settings, however InputStream Adaptiv
 msgstr ""
 
 msgctxt "#30580"
-msgid "Reset access manager"
+msgid "Reset Access Manager"
 msgstr ""
 
 msgctxt "#30581"
@@ -617,7 +617,7 @@ msgid "Are you sure you want to reset access manager?"
 msgstr ""
 
 msgctxt "#30582"
-msgid "Autoplay suggested videos"
+msgid "Autoplay Suggested Videos"
 msgstr ""
 
 msgctxt "#30583"
@@ -717,7 +717,7 @@ msgid "Quick Search (Incognito)"
 msgstr ""
 
 msgctxt "#30607"
-msgid "Audio only"
+msgid "Audio Only"
 msgstr ""
 
 msgctxt "#30608"
@@ -965,11 +965,11 @@ msgid "Play count minimum percent"
 msgstr ""
 
 msgctxt "#30669"
-msgid "Mark as unwatched"
+msgid "Mark As Unwatched"
 msgstr ""
 
 msgctxt "#30670"
-msgid "Mark as watched"
+msgid "Mark As Watched"
 msgstr ""
 
 msgctxt "#30671"
@@ -1097,7 +1097,7 @@ msgid "Failed to obtain client IP"
 msgstr ""
 
 msgctxt "#30702"
-msgid "Play with subtitles"
+msgid "Play With Subtitles"
 msgstr ""
 
 msgctxt "#30703"
@@ -1109,7 +1109,7 @@ msgid "Use YouTube website urls"
 msgstr ""
 
 msgctxt "#30705"
-msgid "Download subtitles"
+msgid "Download Subtitles"
 msgstr ""
 
 msgctxt "#30706"
@@ -1121,7 +1121,7 @@ msgid "Untitled"
 msgstr ""
 
 msgctxt "#30708"
-msgid "Play audio only"
+msgid "Play Audio Only"
 msgstr ""
 
 msgctxt "#30709"
@@ -1209,7 +1209,7 @@ msgid "Remote friendly search"
 msgstr ""
 
 msgctxt "#30730"
-msgid "Play (Ask for quality)"
+msgid "Play (Ask For Quality)"
 msgstr ""
 
 msgctxt "#30731"
