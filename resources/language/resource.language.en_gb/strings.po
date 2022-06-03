@@ -468,11 +468,11 @@ msgid "rtmpe streams are not supported"
 msgstr ""
 
 msgctxt "#30543"
-msgid "Refresh"
+msgid "Refresh Page"
 msgstr ""
 
 msgctxt "#30544"
-msgid "More Links from the description"
+msgid "Links From Description"
 msgstr ""
 
 msgctxt "#30545"
@@ -972,11 +972,11 @@ msgid "Play count minimum percent"
 msgstr ""
 
 msgctxt "#30669"
-msgid "Mark unwatched"
+msgid "Mark As Unwatched"
 msgstr ""
 
 msgctxt "#30670"
-msgid "Mark watched"
+msgid "Mark As Watched"
 msgstr ""
 
 msgctxt "#30671"
@@ -1237,4 +1237,8 @@ msgstr ""
 
 msgctxt "#30735"
 msgid "Edited"
+msgstr ""
+
+msgctxt "#30736"
+msgid "Video Description"
 msgstr ""
