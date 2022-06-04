@@ -381,15 +381,15 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
         
         # Video Description
         yt_context_menu.append((context.localize(provider.LOCAL_MAP['youtube.video.descriptions']),
-                   'Container.Update(%s)' % context.create_uri(['special', 'related_videos'], {'video_id': vid_id})))
+                   'Container.Update(%s)' % context.create_uri(['special', 'related_videos'])))
         
         # Comments
         yt_context_menu.append((context.localize(provider.LOCAL_MAP['youtube.video.comments']),
-                   'Container.Update(%s)' % context.create_uri(['special', 'parent_comments'], {'video_id': vid_id})))
+                   'Container.Update(%s)' % context.create_uri(['special', 'parent_comments'])))
         
         # Related Videos
         yt_context_menu.append((context.localize(provider.LOCAL_MAP['youtube.related_videos']),
-                   'Container.Update(%s)' % context.create_uri(['special', 'related_videos'], {'video_id': vid_id})))
+                   'Container.Update(%s)' % context.create_uri(['special', 'related_videos'])))
 
         """
         Play all videos of the playlist.
@@ -459,7 +459,7 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
 
         # links from description        
         yt_context_menu.append((context.localize(provider.LOCAL_MAP['youtube.video.description.links']),
-                   'Container.Update(%s)' % context.create_uri(['special', 'description_links'], {'video_id': vid_id})))        
+                   'Container.Update(%s)' % context.create_uri(['special', 'description_links'])))        
                 
         # more...
         refresh_container = \
