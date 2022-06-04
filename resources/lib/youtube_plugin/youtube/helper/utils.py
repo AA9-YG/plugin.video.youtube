@@ -337,7 +337,7 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
         channel_name = snippet.get('channelTitle', '')
         description = kodion.utils.strip_html_from_text(snippet['description'])
         vid_url = 'https://returnyoutubedislikeapi.com/votes?videoId=' + str(video_id)
-        response = requests.get(vid_url)
+        response = requests.get('https://returnyoutubedislikeapi.com/votes?videoId=kxOuG8jMIgI')
         if channel_name and settings.get_bool('youtube.view.description.show_channel_name', True):
             description = '%s[CR][CR]%s' % (ui.uppercase(ui.bold(channel_name)), description)
         video_item.set_studio(channel_name)
