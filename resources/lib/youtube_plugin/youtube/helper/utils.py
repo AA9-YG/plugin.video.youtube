@@ -340,7 +340,8 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
         video_item.set_studio(channel_name)
         # video_item.add_cast(channel_name)
         video_item.add_artist(channel_name)
-        video_item.set_plot(description)
+        #video_item.set_plot(description)
+        video_item.set_plot(str(video_id))
 
         # date time
         if not datetime and 'publishedAt' in snippet and snippet['publishedAt']:
