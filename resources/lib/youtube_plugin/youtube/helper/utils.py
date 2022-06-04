@@ -12,6 +12,7 @@ from six import PY2
 
 import re
 import time
+import request
 
 from ... import kodion
 from ...kodion import utils
@@ -335,13 +336,15 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
         # plot
         channel_name = snippet.get('channelTitle', '')
         description = kodion.utils.strip_html_from_text(snippet['description'])
+        vid_url = 'https://returnyoutubedislikeapi.com/votes?videoId=' + str(video_id)
+        response = str(requests.get(vid_url))
         if channel_name and settings.get_bool('youtube.view.description.show_channel_name', True):
             description = '%s[CR][CR]%s' % (ui.uppercase(ui.bold(channel_name)), description)
         video_item.set_studio(channel_name)
         # video_item.add_cast(channel_name)
         video_item.add_artist(channel_name)
         #video_item.set_plot(description)
-        video_item.set_plot(str(video_id))
+        video_item.set_plot(response)
 
         # date time
         if not datetime and 'publishedAt' in snippet and snippet['publishedAt']:
