@@ -476,9 +476,7 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
         yt_context_menu.append_play_ask_for_quality(context_menu, provider, context, video_id)
         
         # links from description        
-        #yt_context_menu.append((context.localize(provider.LOCAL_MAP['youtube.video.description.links']),
-        #           'Container.Update(%s)' % context.create_uri(['special', 'description_links'])))
-        yt_context_menu.append_content_description(context_menu, provider, context, video_id)
+        yt_context_menu.append_content_from_description(context_menu, provider, context, video_id)
         
         # Refresh
         yt_context_menu.append_refresh(context_menu, provider, context)
