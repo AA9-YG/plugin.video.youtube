@@ -393,8 +393,6 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
         #           'Container.Update(%s)' % context.create_uri(['special', 'parent_comments'])))
         
         # Related Videos
-        #yt_context_menu.append((context.localize(provider.LOCAL_MAP['youtube.related_videos']),
-        #           'Container.Update(%s)' % context.create_uri(['special', 'related_videos'])))
         yt_context_menu.append_related_videos(context_menu, provider, context, video_id)
         
         """
@@ -461,11 +459,7 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
                 yt_context_menu.append_mark_unwatched(context_menu, provider, context, video_id)
 
             if int(play_data.get('played_percent', '0')) > 0 or float(play_data.get('played_time', '0.0')) > 0.0:
-                yt_context_menu.append_reset_resume_point(context_menu, provider, context, video_id)
-
-        # links from description        
-        #yt_context_menu.append((context.localize(provider.LOCAL_MAP['youtube.video.description.links']),
-        #           'Container.Update(%s)' % context.create_uri(['special', 'description_links'])))        
+                yt_context_menu.append_reset_resume_point(context_menu, provider, context, video_id)        
                 
         # more...
         refresh_container = \
@@ -480,6 +474,11 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
             yt_context_menu.append_play_audio_only(context_menu, provider, context, video_id)
 
         yt_context_menu.append_play_ask_for_quality(context_menu, provider, context, video_id)
+        
+        # links from description        
+        #yt_context_menu.append((context.localize(provider.LOCAL_MAP['youtube.video.description.links']),
+        #           'Container.Update(%s)' % context.create_uri(['special', 'description_links'])))
+        yt_context_menu.append_content_description(context_menu, provider, context, video_id)
         
         # Refresh
         yt_context_menu.append_refresh(context_menu, provider, context)
