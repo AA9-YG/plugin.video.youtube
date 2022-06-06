@@ -12,7 +12,7 @@ from six import PY2
 
 import re
 import time
-import request
+import requests
 
 from ... import kodion
 from ...kodion import utils
