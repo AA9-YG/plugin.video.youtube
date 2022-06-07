@@ -239,10 +239,6 @@ def update_playlist_infos(provider, context, playlist_id_dict, channel_items_dic
 
 
 def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=None, channel_items_dict=None, live_details=False, use_play_data=True):
-    #vid_id = context.get_param('video_id', '')
-    #if not vid_id:
-    #    raise kodion.KodionException('video/: missing video_id')
-    
     settings = context.get_settings()
     ui = context.get_ui()
 
@@ -336,15 +332,15 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
         # plot
         channel_name = snippet.get('channelTitle', '')
         description = kodion.utils.strip_html_from_text(snippet['description'])
-        vid_url = 'https://returnyoutubedislikeapi.com/votes?videoId=' + str(video_id)
-        response = requests.get(vid_url)
+        #vid_url = 'https://returnyoutubedislikeapi.com/votes?videoId=' + str(video_id)
+        #response = requests.get(vid_url)
         if channel_name and settings.get_bool('youtube.view.description.show_channel_name', True):
             description = '%s[CR][CR]%s' % (ui.uppercase(ui.bold(channel_name)), description)
         video_item.set_studio(channel_name)
         # video_item.add_cast(channel_name)
         video_item.add_artist(channel_name)
-        #video_item.set_plot(description)
-        video_item.set_plot(response.text)
+        video_item.set_plot(description)
+        #video_item.set_plot(response.text)
 
         # date time
         if not datetime and 'publishedAt' in snippet and snippet['publishedAt']:
