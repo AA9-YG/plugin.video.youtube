@@ -1240,5 +1240,5 @@ msgid "Edited"
 msgstr ""
 
 msgctxt "#30736"
-msgid "Video Description"
+msgid "Video Statistics"
 msgstr ""
