@@ -145,7 +145,6 @@ def _process_video_stats(provider, context):
         result = requests.get(vid_url)
         if not v3.handle_error(provider, context, json_data):
             return False
-        result.extend(v3.response_to_items(provider, context, json_data, process_next_page=False))
     
     return result
 
