@@ -141,7 +141,10 @@ def _process_live_events(provider, context, event_type='live'):
 def _process_video_stats(provider, context):
     video_id = context.get_param('video_id', '')
     vid_url = 'https://returnyoutubedislikeapi.com/votes?videoId=' + str(video_id)
-    result = requests.get(vid_url)
+    response = requests.get(vid_url)
+    
+    result = []
+    result.extend(response.text)
     
     return result
 
