@@ -8,6 +8,8 @@
     See LICENSES/GPL-2.0-only for more information.
 """
 
+import requests
+
 from ... import kodion
 from ...kodion.items import DirectoryItem, UriItem
 from ...youtube.helper import v3, tv, extract_urls, UrlResolver, UrlToItemConverter
@@ -136,6 +138,16 @@ def _process_live_events(provider, context, event_type='live'):
 
     return result
 
+def _process_video_stats(provider, context):
+    video_id = context.get_param('video_id', '')
+    if video_id:
+        vid_url = 'https://returnyoutubedislikeapi.com/votes?videoId=' + str(video_id)
+        result = requests.get(vid_url)
+        if not v3.handle_error(provider, context, json_data):
+            return False
+        result.extend(v3.response_to_items(provider, context, json_data, process_next_page=False))
+    
+    return result
 
 def _process_description_links(provider, context):
     incognito = str(context.get_param('incognito', False)).lower() == 'true'
@@ -322,5 +334,7 @@ def process(category, provider, context):
         return _process_parent_comments(provider, context)
     elif category == 'child_comments':
         return _process_child_comments(provider, context)
+    elif category == 'video_stats':
+        return _process_video_stats(provider, context)
     else:
         raise kodion.KodionException("YouTube special category '%s' not found" % category)
