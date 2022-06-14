@@ -140,11 +140,8 @@ def _process_live_events(provider, context, event_type='live'):
 
 def _process_video_stats(provider, context):
     video_id = context.get_param('video_id', '')
-    #if video_id:
-    #    vid_url = 'https://returnyoutubedislikeapi.com/votes?videoId=' + str(video_id)
-    #    result = requests.get(vid_url)
-    #else:
-        result = "No Video Stats Available"
+    vid_url = 'https://returnyoutubedislikeapi.com/votes?videoId=' + str(video_id)
+    result = requests.get(vid_url)
     
     return result
 
