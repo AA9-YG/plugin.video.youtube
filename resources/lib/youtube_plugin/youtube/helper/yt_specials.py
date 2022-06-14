@@ -143,8 +143,8 @@ def _process_video_stats(provider, context):
     if video_id:
         vid_url = 'https://returnyoutubedislikeapi.com/votes?videoId=' + str(video_id)
         result = requests.get(vid_url)
-        if not v3.handle_error(provider, context, json_data):
-            return False
+    else:
+        result = "No Video Stats Available"
     
     return result
 
