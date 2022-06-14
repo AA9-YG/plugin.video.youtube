@@ -376,9 +376,8 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
         # Queue Video
         yt_context_menu.append_queue_video(context_menu, provider, context)
         
-        # Video Description
-        #yt_context_menu.append((context.localize(provider.LOCAL_MAP['youtube.video.descriptions']),
-        #           'Container.Update(%s)' % context.create_uri(['special', 'related_videos'])))
+        # Video Statistics
+        yt_context_menu.append_video_stats(context_menu, provider, context, video_id)
         
         # Comments
         #yt_context_menu.append((context.localize(provider.LOCAL_MAP['youtube.video.comments']),
