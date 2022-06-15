@@ -147,7 +147,7 @@ def _process_video_stats(provider, context):
     
     stats = []
     stats.extend(response.text)
-    result = dialog.textviewer(stats)
+    result = dialog.textviewer('Video Statistics', stats)
     
     return result
 
