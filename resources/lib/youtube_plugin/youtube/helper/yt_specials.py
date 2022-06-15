@@ -145,8 +145,9 @@ def _process_video_stats(provider, context):
     vid_url = 'https://returnyoutubedislikeapi.com/votes?videoId=' + str(video_id)
     response = requests.get(vid_url)
     
-    stats = []
-    stats.extend(response.text)
+    #stats = []
+    #stats.extend(response.text)
+    stats = response.text
     result = dialog.textviewer('Video Statistics', stats)
     
     return result
