@@ -147,7 +147,7 @@ def _process_video_stats(provider, context):
     
     stats = []
     stats.extend(response.text)
-    result = dialog.info(stats)
+    result = dialog.contextmenu(stats)
     
     return result
 
