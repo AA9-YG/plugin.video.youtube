@@ -8,6 +8,7 @@
     See LICENSES/GPL-2.0-only for more information.
 """
 
+import xbmcgui
 import requests
 
 from ... import kodion
@@ -139,12 +140,14 @@ def _process_live_events(provider, context, event_type='live'):
     return result
 
 def _process_video_stats(provider, context):
+    dialog = xbmcgui.Dialog()
     video_id = context.get_param('video_id', '')
     vid_url = 'https://returnyoutubedislikeapi.com/votes?videoId=' + str(video_id)
     response = requests.get(vid_url)
     
-    result = []
-    result.extend(response.text)
+    stats = []
+    stats.extend(response.text)
+    result = dialog.info(stats)
     
     return result
 
