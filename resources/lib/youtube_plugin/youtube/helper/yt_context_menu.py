@@ -33,8 +33,9 @@ def append_video_stats(context_menu, provider, context, video_id, refresh_contai
         _refresh_container = '1'
         
     context_menu.append((context.localize(provider.LOCAL_MAP['youtube.video.descriptions']),
-                         'Container.Update(%s)' % context.create_uri(['special', 'descriptions'],
-                                                                     {'video_id': video_id})))
+                         'Container.Update(%s)' % context.create_uri(['video', 'descriptions'],
+                                                                     {'video_id': video_id,
+                                                                      'refresh_container': _refresh_container})))
 
     
 def append_content_from_description(context_menu, provider, context, video_id):
