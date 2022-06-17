@@ -19,7 +19,7 @@ from six import text_type
 from ..exceptions import KodionException
 
 __RE_MATCH_TIME_ONLY__ = re.compile(r'^(?P<hour>[0-9]{2})([:]?(?P<minute>[0-9]{2})([:]?(?P<second>[0-9]{2}))?)?$')
-__RE_MATCH_DATE_ONLY__ = re.compile(r'^(?P<year>[0-9]{4})[-]?(?P<month>[0-9]{2})[-]?(?P<day>[0-9]{2})$')
+__RE_MATCH_DATE_ONLY__ = re.compile(r'^(?P<month>[0-9]{2})[/]?(?P<day>[0-9]{2})[/]?(?P<year>[0-9]{4})$')
 __RE_MATCH_DATETIME__ = re.compile(r'^(?P<year>[0-9]{4})[-]?(?P<month>[0-9]{2})[-]?(?P<day>[0-9]{2})["T ](?P<hour>[0-9]{2})[:]?(?P<minute>[0-9]{2})[:]?(?P<second>[0-9]{2})')
 __RE_MATCH_PERIOD__ = re.compile(r'P((?P<years>\d+)Y)?((?P<months>\d+)M)?((?P<days>\d+)D)?(T((?P<hours>\d+)H)?((?P<minutes>\d+)M)?((?P<seconds>\d+)S)?)?')
 __RE_MATCH_ABBREVIATED__ = re.compile(r'(\w+), (?P<day>\d+) (?P<month>\w+) (?P<year>\d+) (?P<hour>\d+):(?P<minute>\d+):(?P<second>\d+)')
@@ -52,12 +52,12 @@ def parse(datetime_string, localize=True):
                                                       second=_to_int(time_only_match.group('second'))))
                              ).time()
 
-    # match date only '2014-11-08'
+    # match date only '11/25/2014'
     date_only_match = __RE_MATCH_DATE_ONLY__.match(datetime_string)
     if date_only_match:
-        return _utc_to_local(date(_to_int(date_only_match.group('year')),
-                                  _to_int(date_only_match.group('month')),
-                                  _to_int(date_only_match.group('day'))))
+        return _utc_to_local(date(_to_int(date_only_match.group('month')),
+                                  _to_int(date_only_match.group('day')),
+                                  _to_int(date_only_match.group('year'))))
 
     # full date time
     date_time_match = __RE_MATCH_DATETIME__.match(datetime_string)
