@@ -166,8 +166,8 @@ def _process_video_stats(provider, context):
     vid_info = vid_title + views + likes + dislikes + vid_id + description
     result = dialog.textviewer('Video Information', vid_info)
     
-    if dialog.is_aborted():
-        context.log_debug('Resolving urls aborted')
+    if dialog.iscancelled():
+        context.log_debug('Text viewer aborted')
         dialog.close()
     
     return result
@@ -185,7 +185,7 @@ def _process_description_links(provider, context):
 
         progress_dialog = \
             context.get_ui().create_progress_dialog(heading=context.localize(kodion.constants.localize.COMMON_PLEASE_WAIT),
-                                                    background=False)
+                                                    background=True)
 
         resource_manager = provider.get_resource_manager(context)
 
@@ -208,6 +208,7 @@ def _process_description_links(provider, context):
 
             if progress_dialog.is_aborted():
                 context.log_debug('Resolving urls aborted')
+                progress_dialog.close()
                 break
 
             context.sleep(50)
