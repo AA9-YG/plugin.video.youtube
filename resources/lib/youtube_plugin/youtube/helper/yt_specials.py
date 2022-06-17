@@ -166,7 +166,7 @@ def _process_video_stats(provider, context):
     vid_info = vid_title + views + likes + dislikes + vid_id + description
     result = dialog.textviewer('Video Information', vid_info)
     
-    if dialog.iscancelled():
+    if dialog.iscanceled():
         context.log_debug('Text viewer aborted')
         dialog.close()
     
