@@ -150,7 +150,10 @@ def _process_video_stats(provider, context):
     #stats.extend(response.text)
     stats = response.json()
     
-    dislikes = '[B]Dislikes: [COLOR red]%s[/COLOR][/B]' % stats['dislikes']
+    views = '[B]Views: %s\n[/B]' % stats['viewCount'] 
+    likes = '[B]Likes: [COLOR limegreen]%s\n[/COLOR][/B]' % stats['likes']
+    dislikes = '[B]Dislikes: [COLOR red]%s\n[/COLOR][/B]' % stats['dislikes']
+    vid_id = '[B]Video ID: %s\n[/B]' % video_id
     
     result = dialog.textviewer('Video Statistics', dislikes)
     
