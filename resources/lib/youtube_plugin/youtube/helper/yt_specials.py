@@ -150,16 +150,11 @@ def _process_video_stats(provider, context):
     provider.set_content_type(context, kodion.constants.content_type.VIDEOS)
     resource_manager = provider.get_resource_manager(context)
     
-    # Video Title
     video_data = resource_manager.get_videos([video_id])
     yt_item = video_data[video_id]
     snippet = yt_item['snippet']  # crash if not conform
     
-    # Channel Title
-    #channel_data = resource_manager.get_channels([channel_name])
-    #ch_item = channel_data[channel_name]
-    #snippet2 = ch_item['snippet']
-    #datetime = utils.datetime_parser.parse(snippet['publishedAt'])
+    datetime = utils.datetime_parser.parse(snippet['publishedAt'])
     
     #stats = []
     #stats.extend(response.text)
