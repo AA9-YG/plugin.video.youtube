@@ -146,17 +146,24 @@ def _process_video_stats(provider, context):
     vid_url = 'https://returnyoutubedislikeapi.com/votes?videoId=' + str(video_id)
     response = requests.get(vid_url)
     
+    provider.set_content_type(context, kodion.constants.content_type.VIDEOS)
+    resource_manager = provider.get_resource_manager(context)
+    video_data = resource_manager.get_videos([video_id])
+    yt_item = video_data[video_id]
+    snippet = yt_item['snippet']  # crash if not conform
+    
     #stats = []
     #stats.extend(response.text)
     stats = response.json()
     
+    vid_title = '[B]Video Title: %s[/B]\n' % snippet['title']
     views = '[B]Views: [COLOR cyan]%s[/COLOR][/B]\n' % stats['viewCount'] 
     likes = '[B]Likes: [COLOR lime]%s[/COLOR][/B]\n' % stats['likes']
     dislikes = '[B]Dislikes: [COLOR red]%s[/COLOR][/B]\n' % stats['dislikes']
     vid_id = '[B]Video ID: %s\n[/B]' % video_id
     description = '[B]\nDescription:[/B] %s' % kodion.utils.strip_html_from_text(snippet['description'])
     
-    vid_info = views + likes + dislikes + vid_id + description
+    vid_info = vid_title + views + likes + dislikes + vid_id + description
     result = dialog.textviewer('Video Information', vid_info)
     
     return result
