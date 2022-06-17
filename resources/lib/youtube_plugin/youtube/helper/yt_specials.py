@@ -150,12 +150,14 @@ def _process_video_stats(provider, context):
     #stats.extend(response.text)
     stats = response.json()
     
-    views = '[B]Views: %s\n[/B]' % stats['viewCount'] 
-    likes = '[B]Likes: [COLOR limegreen]%s\n[/COLOR][/B]' % stats['likes']
-    dislikes = '[B]Dislikes: [COLOR red]%s\n[/COLOR][/B]' % stats['dislikes']
+    views = '[B]Views: [COLOR cyan]%s[/COLOR][/B]\n' % stats['viewCount'] 
+    likes = '[B]Likes: [COLOR lime]%s[/COLOR][/B]\n' % stats['likes']
+    dislikes = '[B]Dislikes: [COLOR red]%s[/COLOR][/B]\n' % stats['dislikes']
     vid_id = '[B]Video ID: %s\n[/B]' % video_id
+    description = '[B]\nDescription:[/B] %s' % kodion.utils.strip_html_from_text(snippet['description'])
     
-    result = dialog.textviewer('Video Statistics', dislikes)
+    vid_info = views + likes + dislikes + vid_id + description
+    result = dialog.textviewer('Video Information', vid_info)
     
     return result
 
