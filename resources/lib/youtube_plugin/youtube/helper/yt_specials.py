@@ -156,6 +156,7 @@ def _process_video_stats(provider, context):
     snippet = yt_item['snippet']  # crash if not conform
     
     datetime = snippet['publishedAt']
+    duration = yt_item.get('contentDetails', {}).get('duration', '')
     
     #stats = []
     #stats.extend(response.text)
@@ -167,10 +168,11 @@ def _process_video_stats(provider, context):
     likes = '[B]Likes: [COLOR lime]%s[/COLOR][/B]\n' % stats['likes']
     dislikes = '[B]Dislikes: [COLOR red]%s[/COLOR][/B]\n' % stats['dislikes']
     date = '[B]Published Date: %s[/B]\n' % datetime
+    length = '[B]Duration: %s[/B]\n' % duration
     vid_id = '[B]Video ID: %s\n[/B]' % video_id
     description = '[B]\nDescription:[/B] %s' % kodion.utils.strip_html_from_text(snippet['description'])
     
-    vid_info = vid_title + ch_title + views + likes + dislikes + date + vid_id + description
+    vid_info = vid_title + ch_title + views + likes + dislikes + date + duration + vid_id + description
     result = dialog.textviewer('Video Information', vid_info)
     
     return result
