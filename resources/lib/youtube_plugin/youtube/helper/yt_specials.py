@@ -165,10 +165,11 @@ def _process_video_stats(provider, context):
     views = '[B]Views: [COLOR cyan]%s[/COLOR][/B]\n' % stats['viewCount'] 
     likes = '[B]Likes: [COLOR lime]%s[/COLOR][/B]\n' % stats['likes']
     dislikes = '[B]Dislikes: [COLOR red]%s[/COLOR][/B]\n' % stats['dislikes']
+    date = '[B]Published Date: %s[/B]\n' % datetime
     vid_id = '[B]Video ID: %s\n[/B]' % video_id
     description = '[B]\nDescription:[/B] %s' % kodion.utils.strip_html_from_text(snippet['description'])
     
-    vid_info = vid_title + ch_title + views + likes + dislikes + vid_id + description
+    vid_info = vid_title + ch_title + views + likes + dislikes + date + vid_id + description
     result = dialog.textviewer('Video Information', vid_info)
     
     return result
