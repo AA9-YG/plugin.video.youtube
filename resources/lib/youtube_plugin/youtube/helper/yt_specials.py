@@ -157,7 +157,7 @@ def _process_video_stats(provider, context):
     
     datetime = snippet['publishedAt']
     dur = yt_item.get('contentDetails', {}).get('duration', '')
-    length = datetime_parser.parse(dur)
+    length = kodion.utils.datetime_parser.parse(dur)
     
     #stats = []
     #stats.extend(response.text)
