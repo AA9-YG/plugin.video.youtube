@@ -139,6 +139,7 @@ def _process_live_events(provider, context, event_type='live'):
 
     return result
 
+
 def _process_video_stats(provider, context):
     dialog = xbmcgui.Dialog()
     video_id = context.get_param('video_id', '')
@@ -147,10 +148,14 @@ def _process_video_stats(provider, context):
     
     #stats = []
     #stats.extend(response.text)
-    stats = response.text
+    stats = response.json()
+    
+    
+    
     result = dialog.textviewer('Video Statistics', stats)
     
     return result
+
 
 def _process_description_links(provider, context):
     incognito = str(context.get_param('incognito', False)).lower() == 'true'
