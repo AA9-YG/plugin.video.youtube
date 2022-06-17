@@ -156,16 +156,16 @@ def _process_video_stats(provider, context):
     snippet = yt_item['snippet']  # crash if not conform
     
     # Channel Title
-    channel_data = resource_manager.get_channels([channel_name])
-    ch_item = channel_data[channel_name]
-    snippet2 = ch_item['snippet']
+    #channel_data = resource_manager.get_channels([channel_name])
+    #ch_item = channel_data[channel_name]
+    #snippet2 = ch_item['snippet']
     
     #stats = []
     #stats.extend(response.text)
     stats = response.json()
     
     vid_title = '[B]Video Title: %s[/B]\n' % snippet['title']
-    ch_title = '[B]Channel: %s[/B]\n' % snippet2['title']
+    ch_title = '[B]Channel: %s[/B]\n' % snippet.get('channelTitle', '')
     views = '[B]Views: [COLOR cyan]%s[/COLOR][/B]\n' % stats['viewCount'] 
     likes = '[B]Likes: [COLOR lime]%s[/COLOR][/B]\n' % stats['likes']
     dislikes = '[B]Dislikes: [COLOR red]%s[/COLOR][/B]\n' % stats['dislikes']
