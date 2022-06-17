@@ -159,6 +159,7 @@ def _process_video_stats(provider, context):
     #channel_data = resource_manager.get_channels([channel_name])
     #ch_item = channel_data[channel_name]
     #snippet2 = ch_item['snippet']
+    #datetime = utils.datetime_parser.parse(snippet['publishedAt'])
     
     #stats = []
     #stats.extend(response.text)
