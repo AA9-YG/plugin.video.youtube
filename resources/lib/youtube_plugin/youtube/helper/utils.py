@@ -276,7 +276,7 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
             if duration:
                 duration = utils.datetime_parser.parse(duration)
                 # we subtract 1 seconds because YouTube returns +1 second to much
-                video_item.set_duration_from_seconds(duration.seconds - 1)
+                video_item.set_duration_from_seconds(duration.seconds)
 
         if not video_item.live and use_play_data:
             # play count
@@ -562,7 +562,7 @@ def update_play_info(provider, context, video_id, video_item, video_stream, use_
         if duration:
             duration = utils.datetime_parser.parse(duration)
             # we subtract 1 seconds because YouTube returns +1 second to much
-            video_item.set_duration_from_seconds(duration.seconds - 1)
+            video_item.set_duration_from_seconds(duration.seconds)
 
     if not video_item.live and use_play_data:
         # play count
