@@ -155,7 +155,7 @@ def _process_video_stats(provider, context):
     yt_item = video_data[video_id]
     snippet = yt_item['snippet']  # crash if not conform
     
-    datetime = utils.datetime_parser.parse(snippet['publishedAt'])
+    datetime = snippet['publishedAt']
     
     #stats = []
     #stats.extend(response.text)
