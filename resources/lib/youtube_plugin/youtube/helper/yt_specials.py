@@ -150,9 +150,9 @@ def _process_video_stats(provider, context):
     #stats.extend(response.text)
     stats = response.json()
     
+    dislikes = '[B]Dislikes: [COLOR red]%s[/COLOR][/B]' % stats['dislikes']
     
-    
-    result = dialog.textviewer('Video Statistics', stats)
+    result = dialog.textviewer('Video Statistics', dislikes)
     
     return result
 
