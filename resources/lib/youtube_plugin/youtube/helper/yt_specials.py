@@ -173,7 +173,7 @@ def _process_video_stats(provider, context):
 
     except AttributeError as error:
         # Output expected AttributeErrors.
-        Logging.log_exception(error)
+        context.log_debug(error)
 
     
     return result
