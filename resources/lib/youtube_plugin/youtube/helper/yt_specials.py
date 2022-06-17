@@ -365,7 +365,7 @@ def process(category, provider, context):
         return _process_parent_comments(provider, context)
     elif category == 'child_comments':
         return _process_child_comments(provider, context)
-    elif category == 'video_stats':
+    elif category == 'descriptions':
         return _process_video_stats(provider, context)
     else:
         raise kodion.KodionException("YouTube special category '%s' not found" % category)
