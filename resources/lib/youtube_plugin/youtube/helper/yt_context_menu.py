@@ -27,7 +27,7 @@ def append_more_for_video(context_menu, provider, context, video_id, is_logged_i
                                                                'refresh_container': _refresh_container})))
 
     
-def append_video_stats(context_menu, provider, context, video_id, refresh_container=False):
+def append_video_stats(context_menu, provider, context, video_id, channel_name, refresh_container=False):
     _refresh_container = '0'
     if refresh_container:
         _refresh_container = '1'
@@ -35,6 +35,7 @@ def append_video_stats(context_menu, provider, context, video_id, refresh_contai
     context_menu.append((context.localize(provider.LOCAL_MAP['youtube.video.descriptions']),
                          'RunPlugin(%s)' % context.create_uri(['special', 'descriptions'],
                                                                      {'video_id': video_id,
+                                                                      'channel_name': channel_name,
                                                                       'refresh_container': _refresh_container})))
 
     
