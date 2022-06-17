@@ -143,7 +143,7 @@ def _process_live_events(provider, context, event_type='live'):
 def _process_video_stats(provider, context):
     dialog = xbmcgui.Dialog()
     video_id = context.get_param('video_id', '')
-    channel_id = context.get_param('channel_id', '')
+    channel_name = context.get_param('channel_name', '')
     vid_url = 'https://returnyoutubedislikeapi.com/votes?videoId=' + str(video_id)
     response = requests.get(vid_url)
     
@@ -156,8 +156,8 @@ def _process_video_stats(provider, context):
     snippet = yt_item['snippet']  # crash if not conform
     
     # Channel Title
-    channel_data = resource_manager.get_channels([channel_id])
-    ch_item = channel_data[channel_id]
+    channel_data = resource_manager.get_channels([channel_name])
+    ch_item = channel_data[channel_name]
     snippet2 = ch_item['snippet']
     
     #stats = []
