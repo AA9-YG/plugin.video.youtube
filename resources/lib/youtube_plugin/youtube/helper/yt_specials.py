@@ -12,6 +12,7 @@ import xbmcgui
 import requests
 
 from ... import kodion
+from ...kodion import utils
 from ...kodion.items import DirectoryItem, UriItem
 from ...youtube.helper import v3, tv, extract_urls, UrlResolver, UrlToItemConverter
 from . import utils
