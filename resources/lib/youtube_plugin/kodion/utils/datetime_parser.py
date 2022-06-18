@@ -19,10 +19,10 @@ from six import text_type
 from ..exceptions import KodionException
 
 __RE_MATCH_TIME_ONLY__ = re.compile(r'^(?P<hour>[0-9]{2})([:]?(?P<minute>[0-9]{2})([:]?(?P<second>[0-9]{2}))?)?$')
-__RE_MATCH_DATE_ONLY__ = re.compile(r'^(?P<month>[0-9]{2})[/]?(?P<day>[0-9]{2})[/]?(?P<year>[0-9]{4})$')
-__RE_MATCH_DATETIME__ = re.compile(r'^(?P<month>[0-9]{2})[/]?(?P<day>[0-9]{2})[/]?(?P<year>[0-9]{4})["T ](?P<hour>[0-9]{2})[:]?(?P<minute>[0-9]{2})[:]?(?P<second>[0-9]{2})')
-__RE_MATCH_PERIOD__ = re.compile(r'P((?P<months>\d+)M)?((?P<days>\d+)D)?((?P<years>\d+)Y)?(T((?P<hours>\d+)H)?((?P<minutes>\d+)M)?((?P<seconds>\d+)S)?)?')
-__RE_MATCH_ABBREVIATED__ = re.compile(r'(\w+), (?P<month>\d+) (?P<day>\w+) (?P<year>\d+) (?P<hour>\d+):(?P<minute>\d+):(?P<second>\d+)')
+__RE_MATCH_DATE_ONLY__ = re.compile(r'^(?P<year>[0-9]{4})[-]?(?P<month>[0-9]{2})[-]?(?P<day>[0-9]{2})$')
+__RE_MATCH_DATETIME__ = re.compile(r'^(?P<year>[0-9]{4})[-]?(?P<month>[0-9]{2})[-]?(?P<day>[0-9]{2})["T ](?P<hour>[0-9]{2})[:]?(?P<minute>[0-9]{2})[:]?(?P<second>[0-9]{2})')
+__RE_MATCH_PERIOD__ = re.compile(r'P((?P<years>\d+)Y)?((?P<months>\d+)M)?((?P<days>\d+)D)?(T((?P<hours>\d+)H)?((?P<minutes>\d+)M)?((?P<seconds>\d+)S)?)?')
+__RE_MATCH_ABBREVIATED__ = re.compile(r'(\w+), (?P<year>\d+) (?P<month>\w+) (?P<day>\d+) (?P<hour>\d+):(?P<minute>\d+):(?P<second>\d+)')
 
 now = datetime.now
 
@@ -55,16 +55,16 @@ def parse(datetime_string, localize=True):
     # match date only '11/25/2014'
     date_only_match = __RE_MATCH_DATE_ONLY__.match(datetime_string)
     if date_only_match:
-        return _utc_to_local(date(_to_int(date_only_match.group('month')),
-                                  _to_int(date_only_match.group('day')),
-                                  _to_int(date_only_match.group('year'))))
+        return _utc_to_local(date(_to_int(date_only_match.group('year')),
+                                  _to_int(date_only_match.group('month')),
+                                  _to_int(date_only_match.group('day'))))
 
     # full date time
     date_time_match = __RE_MATCH_DATETIME__.match(datetime_string)
     if date_time_match:
-        return _utc_to_local(datetime(_to_int(date_time_match.group('month')),
+        return _utc_to_local(datetime(_to_int(date_time_match.group('year')),
+                                      _to_int(date_time_match.group('month')),
                                       _to_int(date_time_match.group('day')),
-                                      _to_int(date_time_match.group('year')),
                                       _to_int(date_time_match.group('hour')),
                                       _to_int(date_time_match.group('minute')),
                                       _to_int(date_time_match.group('second'))))
@@ -81,9 +81,9 @@ def parse(datetime_string, localize=True):
     if abbreviated_match:
         month = {'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5, 'June': 6, 'Jun': 6, 'July': 7, 'Jul': 7, 'Aug': 8,
                  'Sept': 9, 'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12}
-        return _utc_to_local(datetime(month=month[abbreviated_match.group('month')],
-                                      day=_to_int(abbreviated_match.group('day')),
-                                      year=_to_int(abbreviated_match.group('year')),
+        return _utc_to_local(datetime(month=month[abbreviated_match.group('year')],
+                                      day=_to_int(abbreviated_match.group('month')),
+                                      year=_to_int(abbreviated_match.group('day')),
                                       hour=_to_int(abbreviated_match.group('hour')),
                                       minute=_to_int(abbreviated_match.group('minute')),
                                       second=_to_int(abbreviated_match.group('second'))))
@@ -168,18 +168,18 @@ def datetime_to_since(context, dt):
     return ' '.join([context.format_date_short(dt), context.format_time(dt)])
 
 
-def strptime(s, fmt='%m/%d/%Y - T%H:%M:%S.%fZ'):
+def strptime(s, fmt='%Y-%m-%dT%H:%M:%S.%fZ'):
     # noinspection PyUnresolvedReferences
 
     ms_precision = '.' in s[-5:-1]
-    if fmt == '%m/%d/%Y - T%H:%M:%S.%fZ' and not ms_precision:
-        fmt = '%m/%d/%Y - T%H:%M:%SZ'
-    elif fmt == '%m/%d/%Y - T%H:%M:%SZ' and ms_precision:
-        fmt = '%m/%d/%Y - T%H:%M:%S.%fZ'
+    if fmt == '%Y-%m-%dT%H:%M:%S.%fZ' and not ms_precision:
+        fmt = '%Y-%m-%dT%H:%M:%SZ'
+    elif fmt == '%Y-%m-%dT%H:%M:%SZ' and ms_precision:
+        fmt = '%Y-%m-%dT%H:%M:%S.%fZ'
 
     import _strptime
     try:
-        time.strptime('01 01 2012', '%m %d %Y')  # dummy call
+        time.strptime('01 01 2012', '%d %m %Y')  # dummy call
     except:
         pass
     return datetime(*time.strptime(s, fmt)[:6])
