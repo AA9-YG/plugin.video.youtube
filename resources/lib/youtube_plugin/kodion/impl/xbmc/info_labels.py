@@ -15,7 +15,7 @@ from ...items import *
 def _process_date(info_labels, param):
     if param:
         datetime = utils.datetime_parser.parse(param)
-        datetime = '%02d/%02d/%04d' % (datetime.month, datetime.day, datetime.year)
+        datetime = '%04d-%02d-%02d' % (datetime.year, datetime.month, datetime.day)
         info_labels['date'] = datetime
 
 
@@ -63,7 +63,7 @@ def _process_video_rating(info_labels, param):
 def _process_date_value(info_labels, name, param):
     if param:
         date = utils.datetime_parser.parse(param)
-        date = '%02d/%02d/%04d' % (date.month, date.day, date.year)
+        date = '%04d.%02d.%02d' % (date.year, date.month, date.day)
         info_labels[name] = date
 
 
