@@ -344,6 +344,7 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
             video_item.set_aired_utc(utils.datetime_parser.strptime(snippet['publishedAt']))
 
         if datetime:
+            datetime.day = datetime.day + 1
             video_item.set_year_from_datetime(datetime)
             video_item.set_aired_from_datetime(datetime)
             video_item.set_premiered_from_datetime(datetime)
