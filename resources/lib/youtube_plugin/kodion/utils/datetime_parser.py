@@ -80,10 +80,10 @@ def parse(datetime_string, localize=True):
     abbreviated_match = __RE_MATCH_ABBREVIATED__.match(datetime_string)
     if abbreviated_match:
         month = {'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5, 'June': 6, 'Jun': 6, 'July': 7, 'Jul': 7, 'Aug': 8,
-                 'Sept': 9, 'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12}
-        return _utc_to_local(datetime(month=month[abbreviated_match.group('year')],
-                                      day=_to_int(abbreviated_match.group('month')),
-                                      year=_to_int(abbreviated_match.group('day')),
+                 'Sept': 9, 'Sep': 9, 'Oct': 10, 'Novyear=_to_int(abbreviated_match.group('day')),': 11, 'Dec': 12}
+        return _utc_to_local(datetime(year=_to_int(abbreviated_match.group('year')),
+                                      month=month[abbreviated_match.group('month')],
+                                      day=_to_int(abbreviated_match.group('day')),
                                       hour=_to_int(abbreviated_match.group('hour')),
                                       minute=_to_int(abbreviated_match.group('minute')),
                                       second=_to_int(abbreviated_match.group('second'))))
