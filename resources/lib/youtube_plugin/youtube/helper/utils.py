@@ -341,7 +341,7 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
         # date time
         if not datetime and 'publishedAt' in snippet and snippet['publishedAt']:
             datetime = utils.datetime_parser.parse(snippet['publishedAt'])
-            #video_item.set_aired_utc(utils.datetime_parser.strptime(snippet['publishedAt']))
+            video_item.set_aired_utc(utils.datetime_parser.strptime(snippet['publishedAt']))
 
         if datetime:
             video_item.set_year_from_datetime(datetime)
@@ -589,12 +589,12 @@ def update_play_info(provider, context, video_id, video_item, video_stream, use_
     video_item.set_plot(description)
 
     # date time
-    if 'publishedAt' in snippet and snippet['publishedAt']:
-        date_time = utils.datetime_parser.parse(snippet['publishedAt'])
-        video_item.set_year_from_datetime(date_time)
-        video_item.set_aired_from_datetime(date_time)
-        video_item.set_premiered_from_datetime(date_time)
-        video_item.set_date_from_datetime(date_time)
+    #if 'publishedAt' in snippet and snippet['publishedAt']:
+     #   date_time = utils.datetime_parser.parse(snippet['publishedAt'])
+     #   video_item.set_year_from_datetime(date_time)
+     #   video_item.set_aired_from_datetime(date_time)
+     #   video_item.set_premiered_from_datetime(date_time)
+     #   video_item.set_date_from_datetime(date_time)
 
     if not image:
         image = get_thumbnail(thumb_size, snippet.get('thumbnails', {}))
