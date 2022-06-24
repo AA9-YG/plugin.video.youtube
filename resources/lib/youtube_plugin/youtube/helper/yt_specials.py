@@ -170,7 +170,7 @@ def _process_video_stats(provider, context):
     views = '[B]Views: [COLOR cyan]%s[/COLOR][/B]\n' % stats['viewCount'] 
     likes = '[B]Likes: [COLOR lime]%s[/COLOR][/B]\n' % stats['likes']
     dislikes = '[B]Dislikes: [COLOR red]%s[/COLOR][/B]\n' % stats['dislikes']
-    date = '[B]Published Date: %s[/B]\n' % datetime
+    date = '[B]Published Date: %s[/B]\n' % datetime.year
     duration = '[B]Duration: %s[/B]\n' % dur_parse
     vid_id = '[B]Video ID: %s\n[/B]' % video_id
     description = '[B]\nDescription:[/B] %s' % kodion.utils.strip_html_from_text(snippet['description'])
