@@ -125,17 +125,17 @@ def to_video_item(context, video_item):
 
     item.setProperty('IsPlayable', 'true')
 
-    if not video_item.live:
-        published_at = video_item.get_aired_utc()
-        scheduled_start = video_item.get_scheduled_start_utc()
-        use_dt = scheduled_start or published_at
-        if use_dt:
-            local_dt = utils.datetime_parser.utc_to_local(use_dt)
-            item.setProperty('PublishedSince',
-                             utils.to_unicode(utils.datetime_parser.datetime_to_since(context, local_dt)))
-            item.setProperty('PublishedLocal', str(local_dt))
-    else:
-        item.setProperty('PublishedSince', context.localize('30539'))
+   # if not video_item.live:
+    #    published_at = video_item.get_aired_utc()
+    #    scheduled_start = video_item.get_scheduled_start_utc()
+    #    use_dt = scheduled_start or published_at
+    #    if use_dt:
+     #       local_dt = utils.datetime_parser.utc_to_local(use_dt)
+     #       item.setProperty('PublishedSince',
+      #                       utils.to_unicode(utils.datetime_parser.datetime_to_since(context, local_dt)))
+      #      item.setProperty('PublishedLocal', str(local_dt))
+    #else:
+     #   item.setProperty('PublishedSince', context.localize('30539'))
 
     _info_labels = info_labels.create_from_item(video_item)
 
