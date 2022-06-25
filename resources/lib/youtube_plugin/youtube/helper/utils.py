@@ -14,6 +14,7 @@ import re
 import time
 
 from ... import kodion
+from datetime import timedelta
 from ...kodion import utils
 from ...youtube.helper import yt_context_menu
 from ...youtube.helper import v3
@@ -339,15 +340,16 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
         video_item.set_plot(description)
 
         # date time
-        #if not datetime and 'publishedAt' in snippet and snippet['publishedAt']:
-        #    datetime = utils.datetime_parser.parse(snippet['publishedAt'])
-        #    video_item.set_aired_utc(utils.datetime_parser.strptime(snippet['publishedAt']))
+        if not datetime and 'publishedAt' in snippet and snippet['publishedAt']:
+            datetime = utils.datetime_parser.parse(snippet['publishedAt'])
+            datetime = datetime.now + timedelta(days=1)
+            video_item.set_aired_utc(utils.datetime_parser.strptime(snippet['publishedAt']))
 
-        #if datetime:
-        #    video_item.set_year_from_datetime(datetime)
-        #    video_item.set_aired_from_datetime(datetime)
-        #    video_item.set_premiered_from_datetime(datetime)
-        #    video_item.set_date_from_datetime(datetime)
+        if datetime:
+            video_item.set_year_from_datetime(datetime)
+            video_item.set_aired_from_datetime(datetime)
+            video_item.set_premiered_from_datetime(datetime)
+            video_item.set_date_from_datetime(datetime)
 
         # try to find a better resolution for the image
         image = video_item.get_image()
