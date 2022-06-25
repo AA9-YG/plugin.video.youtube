@@ -341,9 +341,12 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
 
         # date time
         if not datetime and 'publishedAt' in snippet and snippet['publishedAt']:
-            datetime = utils.datetime_parser.parse(snippet['publishedAt'])
-            datetime = datetime.now + timedelta(days=1)
-            video_item.set_aired_utc(utils.datetime_parser.strptime(snippet['publishedAt']))
+            dt = utils.datetime_parser.parse(snippet['publishedAt'])
+            dt_strp = utils.datetime_parser.strptime(dt)
+            dt2 = dt_strp + timedelta(days=1)
+            datetime = dt2
+            #video_item.set_aired_utc(utils.datetime_parser.strptime(snippet['publishedAt']))
+            video_item.set_aired_utc(dt2)
 
         if datetime:
             video_item.set_year_from_datetime(datetime)
