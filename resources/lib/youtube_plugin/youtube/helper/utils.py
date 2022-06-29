@@ -589,9 +589,9 @@ def update_play_info(provider, context, video_id, video_item, video_stream, use_
     response = requests.get(vid_url)
     
     dt = snippet['publishedAt']
-    dt2 = kodion.utils.datetime_parser.strptime(dt, fmt='%Y-%m-%dT%H:%M:%S.%fZ')
+    dt2 = utils.datetime_parser.strptime(dt, fmt='%Y-%m-%dT%H:%M:%S.%fZ')
     dur1 = yt_item.get('contentDetails', {}).get('duration', '')
-    dur_parse1 = kodion.utils.datetime_parser.parse(dur1)
+    dur_parse1 = utils.datetime_parser.parse(dur1)
     
     if dt2.hour < 10:
         hour1 = '0%s' % dt2.hour
