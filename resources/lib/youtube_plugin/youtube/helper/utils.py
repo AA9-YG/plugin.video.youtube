@@ -436,17 +436,21 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
             if is_history:
                 yt_context_menu.append_clear_watch_history(context_menu, provider, context)
 
-        # got to [CHANNEL]
+        # go to [CHANNEL]
         if channel_id and channel_name:
             # only if we are not directly in the channel provide a jump to the channel
             if kodion.utils.create_path('channel', channel_id) != context.get_path():
                 video_item.set_channel_id(channel_id)
                 yt_context_menu.append_go_to_channel(context_menu, provider, context, channel_id, channel_name)
-
+        
+        # subscribe to [CHANNEL]
         if provider.is_logged_in():
             # subscribe to the channel of the video
             video_item.set_subscription_id(channel_id)
             yt_context_menu.append_subscribe_to_channel(context_menu, provider, context, channel_id, channel_name)
+         
+        # rate video
+        yt_context_menu.append_rate_video(context_menu, provider, context, video_id)
 
         if not video_item.live and use_play_data:
             if play_data.get('play_count') is None or int(play_data.get('play_count')) == 0:
