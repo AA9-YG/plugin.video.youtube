@@ -38,6 +38,12 @@ def append_video_stats(context_menu, provider, context, video_id, refresh_contai
                                                                       'refresh_container': _refresh_container})))
 
     
+def append_comments(context_menu, provider, context, video_id):
+    context_menu.append((context.localize(provider.LOCAL_MAP['youtube.video.comments']),
+                         'Container.Update(%s)' % context.create_uri(['special', 'parent_comments'],
+                                                                     {'video_id': video_id})))
+    
+    
 def append_content_from_description(context_menu, provider, context, video_id):
     context_menu.append((context.localize(provider.LOCAL_MAP['youtube.video.description.links']),
                          'RunPlugin(%s)' % context.create_uri(['special', 'description_links'],
