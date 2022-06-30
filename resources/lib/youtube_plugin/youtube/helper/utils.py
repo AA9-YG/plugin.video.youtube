@@ -378,9 +378,6 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
 
         # Refresh
         #yt_context_menu.append_refresh(context_menu, provider, context)
-
-        # Queue Video
-        yt_context_menu.append_queue_video(context_menu, provider, context)
         
         # Video Statistics
         yt_context_menu.append_video_stats(context_menu, provider, context, video_id)
@@ -447,10 +444,15 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
         if provider.is_logged_in():
             # subscribe to the channel of the video
             video_item.set_subscription_id(channel_id)
-            yt_context_menu.append_subscribe_to_channel(context_menu, provider, context, channel_id, channel_name)
-            # rate video
-            yt_context_menu.append_rate_video(context_menu, provider, context, video_id)       
-                
+            yt_context_menu.append_subscribe_to_channel(context_menu, provider, context, channel_id, channel_name)     
+        
+        # Queue Video
+        yt_context_menu.append_queue_video(context_menu, provider, context)   
+        
+        # rate video
+        if provider.is_logged_in():
+            yt_context_menu.append_rate_video(context_menu, provider, context, video_id)  
+        
         # more...
         refresh_container = \
             context.get_path().startswith('/channel/mine/playlist/LL') or \
