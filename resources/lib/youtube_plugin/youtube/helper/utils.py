@@ -450,16 +450,7 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
             yt_context_menu.append_subscribe_to_channel(context_menu, provider, context, channel_id, channel_name)
          
         # rate video
-        yt_context_menu.append_rate_video(context_menu, provider, context, video_id)
-
-        if not video_item.live and use_play_data:
-            if play_data.get('play_count') is None or int(play_data.get('play_count')) == 0:
-                yt_context_menu.append_mark_watched(context_menu, provider, context, video_id)
-            else:
-                yt_context_menu.append_mark_unwatched(context_menu, provider, context, video_id)
-
-            if int(play_data.get('played_percent', '0')) > 0 or float(play_data.get('played_time', '0.0')) > 0.0:
-                yt_context_menu.append_reset_resume_point(context_menu, provider, context, video_id)        
+        yt_context_menu.append_rate_video(context_menu, provider, context, video_id)       
                 
         # more...
         refresh_container = \
@@ -474,6 +465,16 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
             yt_context_menu.append_play_audio_only(context_menu, provider, context, video_id)
 
         yt_context_menu.append_play_ask_for_quality(context_menu, provider, context, video_id)
+        
+        # mark as (un)watched
+        if not video_item.live and use_play_data:
+            if play_data.get('play_count') is None or int(play_data.get('play_count')) == 0:
+                yt_context_menu.append_mark_watched(context_menu, provider, context, video_id)
+            else:
+                yt_context_menu.append_mark_unwatched(context_menu, provider, context, video_id)
+
+            if int(play_data.get('played_percent', '0')) > 0 or float(play_data.get('played_time', '0.0')) > 0.0:
+                yt_context_menu.append_reset_resume_point(context_menu, provider, context, video_id) 
         
         # links from description        
         yt_context_menu.append_content_from_description(context_menu, provider, context, video_id)
