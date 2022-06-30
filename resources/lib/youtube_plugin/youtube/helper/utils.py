@@ -379,6 +379,14 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
         # Refresh
         #yt_context_menu.append_refresh(context_menu, provider, context)
         
+        # more...
+        refresh_container = \
+            context.get_path().startswith('/channel/mine/playlist/LL') or \
+            context.get_path() == '/special/disliked_videos/'
+        yt_context_menu.append_more_for_video(context_menu, provider, context, video_id,
+                                              is_logged_in=provider.is_logged_in(),
+                                              refresh_container=refresh_container)
+        
         # Video Statistics
         yt_context_menu.append_video_stats(context_menu, provider, context, video_id)
         
@@ -452,14 +460,6 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
         # rate video
         if provider.is_logged_in():
             yt_context_menu.append_rate_video(context_menu, provider, context, video_id)  
-        
-        # more...
-        refresh_container = \
-            context.get_path().startswith('/channel/mine/playlist/LL') or \
-            context.get_path() == '/special/disliked_videos/'
-        yt_context_menu.append_more_for_video(context_menu, provider, context, video_id,
-                                              is_logged_in=provider.is_logged_in(),
-                                              refresh_container=refresh_container)
 
         if not video_item.live:
             yt_context_menu.append_play_with_subtitles(context_menu, provider, context, video_id)
