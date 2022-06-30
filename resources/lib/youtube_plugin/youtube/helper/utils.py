@@ -448,9 +448,8 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
             # subscribe to the channel of the video
             video_item.set_subscription_id(channel_id)
             yt_context_menu.append_subscribe_to_channel(context_menu, provider, context, channel_id, channel_name)
-         
-        # rate video
-        yt_context_menu.append_rate_video(context_menu, provider, context, video_id)       
+            # rate video
+            yt_context_menu.append_rate_video(context_menu, provider, context, video_id)       
                 
         # more...
         refresh_container = \
