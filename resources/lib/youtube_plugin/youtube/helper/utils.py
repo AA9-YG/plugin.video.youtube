@@ -386,8 +386,7 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
         yt_context_menu.append_video_stats(context_menu, provider, context, video_id)
         
         # Comments
-        #yt_context_menu.append((context.localize(provider.LOCAL_MAP['youtube.video.comments']),
-        #           'Container.Update(%s)' % context.create_uri(['special', 'parent_comments'])))
+        yt_context_menu.append_comments(context_menu, provider, context, video_id)
         
         # Related Videos
         yt_context_menu.append_related_videos(context_menu, provider, context, video_id)
