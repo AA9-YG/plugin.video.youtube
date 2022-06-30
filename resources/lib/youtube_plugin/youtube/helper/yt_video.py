@@ -111,12 +111,12 @@ def _process_more_for_video(provider, context):
                   # 'Container.Update(%s)' % context.create_uri(['special', 'related_videos'], {'video_id': video_id}))
     #])
 
-    if is_logged_in == '1':
+    #if is_logged_in == '1':
         # rate a video
-        refresh_container = context.get_param('refresh_container', '0')
-        items.append((context.localize(provider.LOCAL_MAP['youtube.video.rate']),
-                      'RunPlugin(%s)' % context.create_uri(['video', 'rate'], {'video_id': video_id,
-                                                                               'refresh_container': refresh_container})))
+        #refresh_container = context.get_param('refresh_container', '0')
+        #items.append((context.localize(provider.LOCAL_MAP['youtube.video.rate']),
+        #              'RunPlugin(%s)' % context.create_uri(['video', 'rate'], {'video_id': video_id,
+        #                                                                       'refresh_container': refresh_container})))
     result = context.get_ui().on_select(context.localize(provider.LOCAL_MAP['youtube.video.more']), items)
     if result != -1:
         context.execute(result)
