@@ -413,7 +413,10 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
         
         # play (ask for quality)
         #yt_context_menu.append_play_ask_for_quality(context_menu, provider, context, video_id)
-        items.append(())
+        items.append((context.localize(provider.LOCAL_MAP['youtube.video.play_ask_for_quality']),
+                         'RunPlugin(%s)' % context.create_uri(['play'],
+                                                              {'video_id': video_id,
+                                                               'ask_for_quality': '1'})))
         
         # 'play with...' (external player)
         if settings.is_support_alternative_player_enabled():
