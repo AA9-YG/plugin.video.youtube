@@ -98,17 +98,20 @@ def _process_more_for_video(provider, context):
         # add video to a playlist
         items.append((context.localize(provider.LOCAL_MAP['youtube.video.add_to_playlist']),
                       'RunPlugin(%s)' % context.create_uri(['playlist', 'select', 'playlist'], {'video_id': video_id})))
-
+    
+    # play (ask for quality)
+    items.append((context.localize(provider.LOCAL_MAP['youtube.video.play_ask_for_quality']),
+                         'RunPlugin(%s)' % context.create_uri(['play'], {'video_id': video_id, 'ask_for_quality': '1'})))
 
     # default items
-    #items.extend([(context.localize(provider.LOCAL_MAP['youtube.related_videos']),
+    #items.extend([#(context.localize(provider.LOCAL_MAP['youtube.related_videos']),
                    #'Container.Update(%s)' % context.create_uri(['special', 'related_videos'], {'video_id': video_id})),
                   #(context.localize(provider.LOCAL_MAP['youtube.video.comments']),
                    #'Container.Update(%s)' % context.create_uri(['special', 'parent_comments'], {'video_id': video_id})),
                   #(context.localize(provider.LOCAL_MAP['youtube.video.description.links']),
                    #'Container.Update(%s)' % context.create_uri(['special', 'description_links'], {'video_id': video_id})),
                   #(context.localize(provider.LOCAL_MAP['youtube.video.descriptions']),
-                  # 'Container.Update(%s)' % context.create_uri(['special', 'related_videos'], {'video_id': video_id}))
+                  # 'Container.Update(%s)' % context.create_uri(['special', 'related_videos'], {'video_id': video_id})),
     #])
 
     #if is_logged_in == '1':
