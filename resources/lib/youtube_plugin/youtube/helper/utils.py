@@ -379,11 +379,6 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
         # Refresh
         #yt_context_menu.append_refresh(context_menu, provider, context)
         
-        # reset resume position
-        if not video_item.live and use_play_data:
-            if int(play_data.get('played_percent', '0')) > 0 or float(play_data.get('played_time', '0.0')) > 0.0:
-                yt_context_menu.append_reset_resume_point(context_menu, provider, context, video_id)
-        
         # more...
         refresh_container = \
             context.get_path().startswith('/channel/mine/playlist/LL') or \
@@ -480,7 +475,8 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
                 yt_context_menu.append_mark_watched(context_menu, provider, context, video_id)
             else:
                 yt_context_menu.append_mark_unwatched(context_menu, provider, context, video_id)
-
+            
+            # reset resume position
             #if int(play_data.get('played_percent', '0')) > 0 or float(play_data.get('played_time', '0.0')) > 0.0:
             #    yt_context_menu.append_reset_resume_point(context_menu, provider, context, video_id) 
         
