@@ -17,6 +17,7 @@ import requests
 from ... import kodion
 from datetime import timedelta
 from ...kodion import utils
+from ...kodion import exceptions
 from ...youtube.helper import yt_context_menu
 from ...youtube.helper import v3
 
@@ -373,7 +374,7 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
                 channel_items_dict[channel_id] = []
             channel_items_dict[channel_id].append(video_item)
         
-        items = []
+        more_items = []
         context_menu = []
         replace_context_menu = False
 
@@ -413,7 +414,7 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
         
         # play (ask for quality)
         #yt_context_menu.append_play_ask_for_quality(context_menu, provider, context, video_id)
-        items.append((context.localize(provider.LOCAL_MAP['youtube.video.play_ask_for_quality']),
+        more_items.append((context.localize(provider.LOCAL_MAP['youtube.video.play_ask_for_quality']),
                          'RunPlugin(%s)' % context.create_uri(['play'],
                                                               {'video_id': video_id,
                                                                'ask_for_quality': '1'})))
@@ -492,10 +493,13 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
        
         if len(context_menu) > 0:
             video_item.set_context_menu(context_menu, replace=replace_context_menu)
+        
+        if len(more_items) > 0:
+            context.get_ui().on_select(context.localize(provider.LOCAL_MAP['youtube.video.more']), more_items)
+        else:
+            raise KodionException("No Options Available")
+   
 
-        more_results = context.get_ui().on_select(context.localize(provider.LOCAL_MAP['youtube.video.more']), items)
-        if result != -1:
-            context.execute(more_results)
             
 def update_play_info(provider, context, video_id, video_item, video_stream, use_play_data=True):
     settings = context.get_settings()
