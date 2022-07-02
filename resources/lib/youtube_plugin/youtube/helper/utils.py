@@ -372,7 +372,8 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
             if channel_id not in channel_items_dict:
                 channel_items_dict[channel_id] = []
             channel_items_dict[channel_id].append(video_item)
-
+        
+        items = []
         context_menu = []
         replace_context_menu = False
 
@@ -409,7 +410,11 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
 
             yt_context_menu.append_play_all_from_playlist(context_menu, provider, context, playlist_id, video_id)
             yt_context_menu.append_play_all_from_playlist(context_menu, provider, context, playlist_id)
-
+        
+        # play (ask for quality)
+        #yt_context_menu.append_play_ask_for_quality(context_menu, provider, context, video_id)
+        items.append(())
+        
         # 'play with...' (external player)
         if settings.is_support_alternative_player_enabled():
             yt_context_menu.append_play_with(context_menu, provider, context)
@@ -465,7 +470,6 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
             yt_context_menu.append_play_with_subtitles(context_menu, provider, context, video_id)
             yt_context_menu.append_play_audio_only(context_menu, provider, context, video_id)
 
-        yt_context_menu.append_play_ask_for_quality(context_menu, provider, context, video_id)
         
         # mark as (un)watched
         if not video_item.live and use_play_data:
