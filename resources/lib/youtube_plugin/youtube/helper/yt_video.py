@@ -8,8 +8,6 @@
     See LICENSES/GPL-2.0-only for more information.
 """
 
-import ...youtube.helper
-
 from ... import kodion
 from ...youtube.helper import v3
 
