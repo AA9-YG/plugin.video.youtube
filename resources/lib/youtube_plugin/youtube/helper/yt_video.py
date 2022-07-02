@@ -103,7 +103,7 @@ def _process_more_for_video(provider, context):
     items.extend([(context.localize(provider.LOCAL_MAP['youtube.video.play_ask_for_quality']),
                   'Container.Update(%s)' % context.create_uri(['play'], {'video_id': video_id, 'ask_for_quality': '1'})),
                   (context.localize(provider.LOCAL_MAP['youtube.video.play_with_subtitles']),
-                  'Container.Update(%s)' % context.create_uri(['play'], {'video_id': video_id, 'prompt_for_subtitles': '1'}))
+                  'Container.Update(%s)' % context.create_uri(['play'], {'video_id': video_id, 'prompt_for_subtitles': '1'})),
                   (context.localize(provider.LOCAL_MAP['youtube.video.play_audio_only']),
                   'Container.Update(%s)' % context.create_uri(['play'], {'video_id': video_id, 'audio_only': '1'}))])
 
