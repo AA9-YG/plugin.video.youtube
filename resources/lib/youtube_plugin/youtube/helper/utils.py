@@ -493,7 +493,10 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
         if len(context_menu) > 0:
             video_item.set_context_menu(context_menu, replace=replace_context_menu)
 
-
+        more_results = context.get_ui().on_select(context.localize(provider.LOCAL_MAP['youtube.video.more']), items)
+        if result != -1:
+            context.execute(more_results)
+            
 def update_play_info(provider, context, video_id, video_item, video_stream, use_play_data=True):
     settings = context.get_settings()
     ui = context.get_ui()
