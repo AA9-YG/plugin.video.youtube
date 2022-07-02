@@ -413,6 +413,11 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
         # play (ask for quality)
         #yt_context_menu.append_play_ask_for_quality(context_menu, provider, context, video_id)
         
+        # play w/ subs & play audio only
+        #if not video_item.live:
+        #    yt_context_menu.append_play_with_subtitles(context_menu, provider, context, video_id)
+        #    yt_context_menu.append_play_audio_only(context_menu, provider, context, video_id)        
+        
         # 'play with...' (external player)
         if settings.is_support_alternative_player_enabled():
             yt_context_menu.append_play_with(context_menu, provider, context)
@@ -463,12 +468,7 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
         # rate video
         if provider.is_logged_in():
             yt_context_menu.append_rate_video(context_menu, provider, context, video_id)  
-
-        if not video_item.live:
-            yt_context_menu.append_play_with_subtitles(context_menu, provider, context, video_id)
-            yt_context_menu.append_play_audio_only(context_menu, provider, context, video_id)
-
-        
+   
         # mark as (un)watched
         if not video_item.live and use_play_data:
             if play_data.get('play_count') is None or int(play_data.get('play_count')) == 0:
