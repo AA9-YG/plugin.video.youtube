@@ -90,6 +90,9 @@ def _process_more_for_video(provider, context):
     video_id = context.get_param('video_id', '')
     if not video_id:
         raise kodion.KodionException('video/more/: missing video_id')
+    
+    snippet = yt_item['snippet']  # crash if not conform
+    play_data = yt_item['play_data']
 
     items = []
 
