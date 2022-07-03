@@ -90,10 +90,6 @@ def _process_more_for_video(provider, context):
     video_id = context.get_param('video_id', '')
     if not video_id:
         raise kodion.KodionException('video/more/: missing video_id')
-
-    playlist_id = context.get_param('playlist_id', '')
-    if not playlist_id:
-        raise kodion.KodionException('video/more/: missing video_id')
         
     items = []
 
