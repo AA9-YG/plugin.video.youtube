@@ -153,7 +153,7 @@ class Provider(kodion.AbstractProvider):
                  'youtube.playback.history': 30673,
                  'youtube.mark.watched': 30670,
                  'youtube.mark.unwatched': 30669,
-                 #'youtube.reset.resume.point': 30674,
+                 'youtube.reset.resume.point': 30674,
                  'youtube.data.cache': 30687,
                  'youtube.httpd.not.running': 30699,
                  'youtube.client.ip': 30700,
