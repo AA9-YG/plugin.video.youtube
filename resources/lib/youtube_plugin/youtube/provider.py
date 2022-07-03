@@ -1325,9 +1325,9 @@ class Provider(kodion.AbstractProvider):
         elif action == 'mark_watched':
             if int(item_dict.get('play_count', 0)) == 0:
                 item_dict['play_count'] = '1'
-        elif action == 'reset_resume':
-            item_dict['played_time'] = '0.0'
-            item_dict['played_percent'] = '0'
+        #elif action == 'reset_resume':
+        #    item_dict['played_time'] = '0.0'
+        #    item_dict['played_percent'] = '0'
         item_dict['play_count'] = item_dict.get('play_count', '0')
         item_dict['total_time'] = item_dict.get('total_time', '0.0')
         item_dict['played_time'] = item_dict.get('played_time', '0.0')
