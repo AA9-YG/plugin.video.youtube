@@ -402,13 +402,13 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
         /channel/[CHANNEL_ID]/playlist/[PLAYLIST_ID]/
         /playlist/[PLAYLIST_ID]/
         """
-        some_playlist_match = re.match(r'^(/channel/([^/]+))/playlist/(?P<playlist_id>[^/]+)/$', context.get_path())
-        if some_playlist_match:
-            replace_context_menu = True
-            playlist_id = some_playlist_match.group('playlist_id')
+        #some_playlist_match = re.match(r'^(/channel/([^/]+))/playlist/(?P<playlist_id>[^/]+)/$', context.get_path())
+        #if some_playlist_match:
+        #    replace_context_menu = True
+        #    playlist_id = some_playlist_match.group('playlist_id')
 
-            yt_context_menu.append_play_all_from_playlist(context_menu, provider, context, playlist_id, video_id)
-            yt_context_menu.append_play_all_from_playlist(context_menu, provider, context, playlist_id)
+        #    yt_context_menu.append_play_all_from_playlist(context_menu, provider, context, playlist_id, video_id)
+        #    yt_context_menu.append_play_all_from_playlist(context_menu, provider, context, playlist_id)
         
         # play (ask for quality)
         #yt_context_menu.append_play_ask_for_quality(context_menu, provider, context, video_id)
@@ -419,8 +419,8 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
         #    yt_context_menu.append_play_audio_only(context_menu, provider, context, video_id)        
         
         # 'play with...' (external player)
-        if settings.is_support_alternative_player_enabled():
-            yt_context_menu.append_play_with(context_menu, provider, context)
+        #if settings.is_support_alternative_player_enabled():
+        #    yt_context_menu.append_play_with(context_menu, provider, context)
 
         #if provider.is_logged_in():
             # add 'Watch Later' only if we are not in my 'Watch Later' list
