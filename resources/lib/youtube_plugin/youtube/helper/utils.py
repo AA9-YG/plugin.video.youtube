@@ -463,10 +463,12 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
             yt_context_menu.append_subscribe_to_channel(context_menu, provider, context, channel_id, channel_name)     
         
         # Queue Video
-        yt_context_menu.append_queue_video(context_menu, provider, context)   
+        yt_context_menu.append_queue_video(context_menu, provider, context)  
         
-        # rate video
         if provider.is_logged_in():
+            # Add to...
+            yt_context_menu.append_add_video_to_playlist(context_menu, provider, context, video_id)
+            # Rate Video
             yt_context_menu.append_rate_video(context_menu, provider, context, video_id)  
    
         # mark as (un)watched
