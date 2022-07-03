@@ -100,7 +100,9 @@ def _process_more_for_video(provider, context):
                       'RunPlugin(%s)' % context.create_uri(['playlist', 'select', 'playlist'], {'video_id': video_id})))
     
     # more play options 
-    items.extend([(context.localize(provider.LOCAL_MAP['youtube.video.play_ask_for_quality']),
+    items.extend([(context.localize(provider.LOCAL_MAP['youtube.playlist.play.from_here']),
+                  'RunPlugin(%s)' % context.create_uri(['play'], {'playlist_id': playlist_id, 'video_id': video_id, 'play': '1'})),
+                  (context.localize(provider.LOCAL_MAP['youtube.video.play_ask_for_quality']),
                   'RunPlugin(%s)' % context.create_uri(['play'], {'video_id': video_id, 'ask_for_quality': '1'})),
                   (context.localize(provider.LOCAL_MAP['youtube.video.play_with_subtitles']),
                   'RunPlugin(%s)' % context.create_uri(['play'], {'video_id': video_id, 'prompt_for_subtitles': '1'})),
