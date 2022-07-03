@@ -93,11 +93,11 @@ def _process_more_for_video(provider, context):
 
     items = []
 
-    is_logged_in = context.get_param('logged_in', '0')
-    if is_logged_in == '1':
+    #is_logged_in = context.get_param('logged_in', '0')
+    #if is_logged_in == '1':
         # add video to a playlist
-        items.append((context.localize(provider.LOCAL_MAP['youtube.video.add_to_playlist']),
-                      'RunPlugin(%s)' % context.create_uri(['playlist', 'select', 'playlist'], {'video_id': video_id})))
+    #    items.append((context.localize(provider.LOCAL_MAP['youtube.video.add_to_playlist']),
+    #                  'RunPlugin(%s)' % context.create_uri(['playlist', 'select', 'playlist'], {'video_id': video_id})))
     
     # more play options 
     items.extend([(context.localize(provider.LOCAL_MAP['youtube.playlist.play.from_here']),
