@@ -422,11 +422,11 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
         if settings.is_support_alternative_player_enabled():
             yt_context_menu.append_play_with(context_menu, provider, context)
 
-        if provider.is_logged_in():
+        #if provider.is_logged_in():
             # add 'Watch Later' only if we are not in my 'Watch Later' list
-            watch_later_playlist_id = context.get_access_manager().get_watch_later_id()
-            if watch_later_playlist_id:
-                yt_context_menu.append_watch_later(context_menu, provider, context, watch_later_playlist_id, video_id)
+            #watch_later_playlist_id = context.get_access_manager().get_watch_later_id()
+            #if watch_later_playlist_id:
+            #    yt_context_menu.append_watch_later(context_menu, provider, context, watch_later_playlist_id, video_id)
 
             # provide 'remove' for videos in my playlists
             if video_id in playlist_item_id_dict:
