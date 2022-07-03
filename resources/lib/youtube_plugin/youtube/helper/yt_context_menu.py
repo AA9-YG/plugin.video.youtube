@@ -206,11 +206,11 @@ def append_mark_unwatched(context_menu, provider, context, video_id):
                                                                'action': 'mark_unwatched'})))
 
 
-def append_reset_resume_point(context_menu, provider, context, video_id):
-    context_menu.append((context.localize(provider.LOCAL_MAP['youtube.reset.resume.point']),
-                         'RunPlugin(%s)' % context.create_uri(['playback_history'],
-                                                              {'video_id': video_id,
-                                                               'action': 'reset_resume'})))
+#def append_reset_resume_point(context_menu, provider, context, video_id):
+#    context_menu.append((context.localize(provider.LOCAL_MAP['youtube.reset.resume.point']),
+#                         'RunPlugin(%s)' % context.create_uri(['playback_history'],
+#                                                              {'video_id': video_id,
+#                                                               'action': 'reset_resume'})))
 
 
 def append_play_with_subtitles(context_menu, provider, context, video_id):
