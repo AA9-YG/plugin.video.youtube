@@ -238,259 +238,6 @@ def update_playlist_infos(provider, context, playlist_id_dict, channel_items_dic
                 channel_items_dict[channel_id] = []
             channel_items_dict[channel_id].append(playlist_item)
 
-
-def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=None, channel_items_dict=None, live_details=False, use_play_data=True):
-    settings = context.get_settings()
-    ui = context.get_ui()
-
-    video_ids = list(video_id_dict.keys())
-    if len(video_ids) == 0:
-        return
-
-    if not playlist_item_id_dict:
-        playlist_item_id_dict = {}
-
-    resource_manager = provider.get_resource_manager(context)
-    video_data = resource_manager.get_videos(video_ids, live_details=live_details,
-                                             suppress_errors=True)
-    thumb_size = settings.use_thumbnail_size()
-    thumb_stamp = get_thumb_timestamp()
-    for video_id in list(video_data.keys()):
-        datetime = None
-        yt_item = video_data.get(video_id)
-        video_item = video_id_dict[video_id]
-
-        # set mediatype
-        video_item.set_mediatype('video')  # using video
-
-        if not yt_item:
-            continue
-
-        snippet = yt_item['snippet']  # crash if not conform
-        play_data = yt_item['play_data']
-        video_item.live = snippet.get('liveBroadcastContent') == 'live'
-
-        # duration
-        if not video_item.live and use_play_data and play_data.get('total_time'):
-            video_item.set_duration_from_seconds(float(play_data.get('total_time')))
-        else:
-            duration = yt_item.get('contentDetails', {}).get('duration', '')
-            if duration:
-                duration = utils.datetime_parser.parse(duration)
-                # we subtract 1 seconds because YouTube returns +1 second to much
-                video_item.set_duration_from_seconds(duration.seconds)
-
-        if not video_item.live and use_play_data:
-            # play count
-            if play_data.get('play_count'):
-                video_item.set_play_count(int(play_data.get('play_count')))
-
-            if play_data.get('played_percent'):
-                video_item.set_start_percent(play_data.get('played_percent'))
-
-            if play_data.get('played_time'):
-                video_item.set_start_time(play_data.get('played_time'))
-
-            if play_data.get('last_played'):
-                video_item.set_last_played(play_data.get('last_played'))
-        elif video_item.live:
-            video_item.set_play_count(0)
-
-        scheduled_start = video_data[video_id].get('liveStreamingDetails', {}).get('scheduledStartTime')
-        if scheduled_start:
-            datetime = utils.datetime_parser.parse(scheduled_start)
-            video_item.set_scheduled_start_utc(datetime)
-            start_date, start_time = utils.datetime_parser.get_scheduled_start(datetime)
-            if start_date:
-                title = u'({live} {date}@{time}) {title}' \
-                    .format(live=context.localize(provider.LOCAL_MAP['youtube.live']), date=start_date, time=start_time, title=snippet['title'])
-            else:
-                title = u'({live} @ {time}) {title}' \
-                    .format(live=context.localize(provider.LOCAL_MAP['youtube.live']), date=start_date, time=start_time, title=snippet['title'])
-            video_item.set_title(title)
-        else:
-            # set the title
-            if not video_item.get_title():
-                video_item.set_title(snippet['title'])
-
-        """
-        This is experimental. We try to get the most information out of the title of a video.
-        This is not based on any language. In some cases this won't work at all.
-        TODO: via language and settings provide the regex for matching episode and season.
-        """
-        # video_item.set_season(1)
-        # video_item.set_episode(1)
-        for regex in __RE_SEASON_EPISODE_MATCHES__:
-            re_match = regex.search(video_item.get_name())
-            if re_match:
-                if 'season' in re_match.groupdict():
-                    video_item.set_season(int(re_match.group('season')))
-
-                if 'episode' in re_match.groupdict():
-                    video_item.set_episode(int(re_match.group('episode')))
-                break
-
-        # plot
-        channel_name = snippet.get('channelTitle', '')
-        description = kodion.utils.strip_html_from_text(snippet['description'])
-        if channel_name and settings.get_bool('youtube.view.description.show_channel_name', True):
-            description = '%s[CR][CR]%s' % (ui.uppercase(ui.bold(channel_name)), description)
-        video_item.set_studio(channel_name)
-        # video_item.add_cast(channel_name)
-        video_item.add_artist(channel_name)
-        video_item.set_plot(description)
-
-        # date time
-        if not datetime and 'publishedAt' in snippet and snippet['publishedAt']:
-            dt = utils.datetime_parser.parse(snippet['publishedAt'])
-            #dt_strp = utils.datetime_parser.strptime(dt)
-            dt2 = dt + timedelta(days=1)
-            datetime = dt2
-            #video_item.set_aired_utc(utils.datetime_parser.strptime(snippet['publishedAt']))
-            video_item.set_aired_utc(dt2)
-
-        if datetime:
-            video_item.set_year_from_datetime(datetime)
-            video_item.set_aired_from_datetime(datetime)
-            video_item.set_premiered_from_datetime(datetime)
-            video_item.set_date_from_datetime(datetime)
-
-        # try to find a better resolution for the image
-        image = video_item.get_image()
-        if not image:
-            image = get_thumbnail(thumb_size, snippet.get('thumbnails', {}))
-        if image.endswith('_live.jpg'):
-            image = ''.join([image, '?ct=', thumb_stamp])
-        video_item.set_image(image)
-
-        # set fanart
-        video_item.set_fanart(provider.get_fanart(context))
-
-        # update channel mapping
-        channel_id = snippet.get('channelId', '')
-        if channel_items_dict is not None:
-            if channel_id not in channel_items_dict:
-                channel_items_dict[channel_id] = []
-            channel_items_dict[channel_id].append(video_item)
-        
-        context_menu = []
-        replace_context_menu = False
-
-        # Refresh
-        #yt_context_menu.append_refresh(context_menu, provider, context)
-        
-        # more...
-        refresh_container = \
-            context.get_path().startswith('/channel/mine/playlist/LL') or \
-            context.get_path() == '/special/disliked_videos/'
-        yt_context_menu.append_more_for_video(context_menu, provider, context, video_id,
-                                              is_logged_in=provider.is_logged_in(),
-                                              refresh_container=refresh_container)
-        
-        # Video Statistics
-        yt_context_menu.append_video_stats(context_menu, provider, context, video_id)
-        
-        # Comments
-        yt_context_menu.append_comments(context_menu, provider, context, video_id)
-        
-        # Related Videos
-        yt_context_menu.append_related_videos(context_menu, provider, context, video_id)
-        
-        """
-        Play all videos of the playlist.
-
-        /channel/[CHANNEL_ID]/playlist/[PLAYLIST_ID]/
-        /playlist/[PLAYLIST_ID]/
-        """
-        #some_playlist_match = re.match(r'^(/channel/([^/]+))/playlist/(?P<playlist_id>[^/]+)/$', context.get_path())
-        #if some_playlist_match:
-        #    replace_context_menu = True
-        #    playlist_id = some_playlist_match.group('playlist_id')
-
-        #    yt_context_menu.append_play_all_from_playlist(context_menu, provider, context, playlist_id, video_id)
-        #    yt_context_menu.append_play_all_from_playlist(context_menu, provider, context, playlist_id)
-        
-        # play (ask for quality)
-        #yt_context_menu.append_play_ask_for_quality(context_menu, provider, context, video_id)
-        
-        # play w/ subs & play audio only
-        #if not video_item.live:
-        #    yt_context_menu.append_play_with_subtitles(context_menu, provider, context, video_id)
-        #    yt_context_menu.append_play_audio_only(context_menu, provider, context, video_id)        
-        
-        # 'play with...' (external player)
-        #if settings.is_support_alternative_player_enabled():
-        #    yt_context_menu.append_play_with(context_menu, provider, context)
-
-        #if provider.is_logged_in():
-            # add 'Watch Later' only if we are not in my 'Watch Later' list
-            #watch_later_playlist_id = context.get_access_manager().get_watch_later_id()
-            #if watch_later_playlist_id:
-            #    yt_context_menu.append_watch_later(context_menu, provider, context, watch_later_playlist_id, video_id)
-
-            # provide 'remove' for videos in my playlists
-            if video_id in playlist_item_id_dict:
-                playlist_match = re.match('^/channel/mine/playlist/(?P<playlist_id>[^/]+)/$', context.get_path())
-                if playlist_match:
-                    playlist_id = playlist_match.group('playlist_id')
-                    # we support all playlist except 'Watch History'
-                    if playlist_id:
-                        if playlist_id != 'HL' and playlist_id.strip().lower() != 'wl':
-                            playlist_item_id = playlist_item_id_dict[video_id]
-                            video_item.set_playlist_id(playlist_id)
-                            video_item.set_playlist_item_id(playlist_item_id)
-                            context_menu.append((context.localize(provider.LOCAL_MAP['youtube.remove']),
-                                                 'RunPlugin(%s)' % context.create_uri(
-                                                     ['playlist', 'remove', 'video'],
-                                                     {'playlist_id': playlist_id, 'video_id': playlist_item_id,
-                                                      'video_name': video_item.get_name()})))
-
-            is_history = re.match('^/special/watch_history_tv/$', context.get_path())
-            if is_history:
-                yt_context_menu.append_clear_watch_history(context_menu, provider, context)
-
-        # go to [CHANNEL]
-        if channel_id and channel_name:
-            # only if we are not directly in the channel provide a jump to the channel
-            if kodion.utils.create_path('channel', channel_id) != context.get_path():
-                video_item.set_channel_id(channel_id)
-                yt_context_menu.append_go_to_channel(context_menu, provider, context, channel_id, channel_name)
-        
-        # subscribe to [CHANNEL]
-        if provider.is_logged_in():
-            # subscribe to the channel of the video
-            video_item.set_subscription_id(channel_id)
-            yt_context_menu.append_subscribe_to_channel(context_menu, provider, context, channel_id, channel_name)     
-        
-        # Queue Video
-        yt_context_menu.append_queue_video(context_menu, provider, context)  
-        
-        if provider.is_logged_in():
-            # Add to...
-            yt_context_menu.append_add_video_to_playlist(context_menu, provider, context, video_id)
-            # Rate Video
-            yt_context_menu.append_rate_video(context_menu, provider, context, video_id)  
-   
-        # mark as (un)watched
-        if not video_item.live and use_play_data:
-            if play_data.get('play_count') is None or int(play_data.get('play_count')) == 0:
-                yt_context_menu.append_mark_watched(context_menu, provider, context, video_id)
-            else:
-                yt_context_menu.append_mark_unwatched(context_menu, provider, context, video_id)
-            
-            # reset resume position
-            #if int(play_data.get('played_percent', '0')) > 0 or float(play_data.get('played_time', '0.0')) > 0.0:
-            #    yt_context_menu.append_reset_resume_point(context_menu, provider, context, video_id) 
-        
-        # links from description        
-        yt_context_menu.append_content_from_description(context_menu, provider, context, video_id)
-        
-        # Refresh
-        yt_context_menu.append_refresh(context_menu, provider, context)
-       
-        if len(context_menu) > 0:
-            video_item.set_context_menu(context_menu, replace=replace_context_menu)
-   
             
 def update_play_info(provider, context, video_id, video_item, video_stream, use_play_data=True):
     settings = context.get_settings()
@@ -656,6 +403,259 @@ def update_play_info(provider, context, video_id, video_item, video_stream, use_
         video_item.set_image(image)
 
     return video_item
+            
+
+def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=None, channel_items_dict=None, live_details=False, use_play_data=True):
+    settings = context.get_settings()
+    ui = context.get_ui()
+
+    video_ids = list(video_id_dict.keys())
+    if len(video_ids) == 0:
+        return
+
+    if not playlist_item_id_dict:
+        playlist_item_id_dict = {}
+
+    resource_manager = provider.get_resource_manager(context)
+    video_data = resource_manager.get_videos(video_ids, live_details=live_details,
+                                             suppress_errors=True)
+    thumb_size = settings.use_thumbnail_size()
+    thumb_stamp = get_thumb_timestamp()
+    for video_id in list(video_data.keys()):
+        datetime = None
+        yt_item = video_data.get(video_id)
+        video_item = video_id_dict[video_id]
+
+        # set mediatype
+        video_item.set_mediatype('video')  # using video
+
+        if not yt_item:
+            continue
+
+        snippet = yt_item['snippet']  # crash if not conform
+        play_data = yt_item['play_data']
+        video_item.live = snippet.get('liveBroadcastContent') == 'live'
+
+        # duration
+        if not video_item.live and use_play_data and play_data.get('total_time'):
+            video_item.set_duration_from_seconds(float(play_data.get('total_time')))
+        else:
+            duration = yt_item.get('contentDetails', {}).get('duration', '')
+            if duration:
+                duration = utils.datetime_parser.parse(duration)
+                # we subtract 1 seconds because YouTube returns +1 second to much
+                video_item.set_duration_from_seconds(duration.seconds)
+
+        if not video_item.live and use_play_data:
+            # play count
+            if play_data.get('play_count'):
+                video_item.set_play_count(int(play_data.get('play_count')))
+
+            if play_data.get('played_percent'):
+                video_item.set_start_percent(play_data.get('played_percent'))
+
+            if play_data.get('played_time'):
+                video_item.set_start_time(play_data.get('played_time'))
+
+            if play_data.get('last_played'):
+                video_item.set_last_played(play_data.get('last_played'))
+        elif video_item.live:
+            video_item.set_play_count(0)
+
+        scheduled_start = video_data[video_id].get('liveStreamingDetails', {}).get('scheduledStartTime')
+        if scheduled_start:
+            datetime = utils.datetime_parser.parse(scheduled_start)
+            video_item.set_scheduled_start_utc(datetime)
+            start_date, start_time = utils.datetime_parser.get_scheduled_start(datetime)
+            if start_date:
+                title = u'({live} {date}@{time}) {title}' \
+                    .format(live=context.localize(provider.LOCAL_MAP['youtube.live']), date=start_date, time=start_time, title=snippet['title'])
+            else:
+                title = u'({live} @ {time}) {title}' \
+                    .format(live=context.localize(provider.LOCAL_MAP['youtube.live']), date=start_date, time=start_time, title=snippet['title'])
+            video_item.set_title(title)
+        else:
+            # set the title
+            if not video_item.get_title():
+                video_item.set_title(snippet['title'])
+
+        """
+        This is experimental. We try to get the most information out of the title of a video.
+        This is not based on any language. In some cases this won't work at all.
+        TODO: via language and settings provide the regex for matching episode and season.
+        """
+        # video_item.set_season(1)
+        # video_item.set_episode(1)
+        for regex in __RE_SEASON_EPISODE_MATCHES__:
+            re_match = regex.search(video_item.get_name())
+            if re_match:
+                if 'season' in re_match.groupdict():
+                    video_item.set_season(int(re_match.group('season')))
+
+                if 'episode' in re_match.groupdict():
+                    video_item.set_episode(int(re_match.group('episode')))
+                break
+
+        # plot
+        channel_name = snippet.get('channelTitle', '')
+        description = kodion.utils.strip_html_from_text(snippet['description'])
+        if channel_name and settings.get_bool('youtube.view.description.show_channel_name', True):
+            description = '%s[CR][CR]%s' % (ui.uppercase(ui.bold(channel_name)), description)
+        video_item.set_studio(channel_name)
+        # video_item.add_cast(channel_name)
+        video_item.add_artist(channel_name)
+        video_item.set_plot(description)
+
+        # date time
+        if not datetime and 'publishedAt' in snippet and snippet['publishedAt']:
+            dt = utils.datetime_parser.parse(snippet['publishedAt'])
+            #dt_strp = utils.datetime_parser.strptime(dt)
+            dt2 = dt + timedelta(days=1)
+            datetime = dt2
+            #video_item.set_aired_utc(utils.datetime_parser.strptime(snippet['publishedAt']))
+            video_item.set_aired_utc(dt2)
+
+        if datetime:
+            video_item.set_year_from_datetime(datetime)
+            video_item.set_aired_from_datetime(datetime)
+            video_item.set_premiered_from_datetime(datetime)
+            video_item.set_date_from_datetime(datetime)
+
+        # try to find a better resolution for the image
+        image = video_item.get_image()
+        if not image:
+            image = get_thumbnail(thumb_size, snippet.get('thumbnails', {}))
+        if image.endswith('_live.jpg'):
+            image = ''.join([image, '?ct=', thumb_stamp])
+        video_item.set_image(image)
+
+        # set fanart
+        video_item.set_fanart(provider.get_fanart(context))
+
+        # update channel mapping
+        channel_id = snippet.get('channelId', '')
+        if channel_items_dict is not None:
+            if channel_id not in channel_items_dict:
+                channel_items_dict[channel_id] = []
+            channel_items_dict[channel_id].append(video_item)
+        
+        context_menu = []
+        replace_context_menu = False
+
+        # Refresh
+        #yt_context_menu.append_refresh(context_menu, provider, context)
+        
+        # more...
+        refresh_container = \
+            context.get_path().startswith('/channel/mine/playlist/LL') or \
+            context.get_path() == '/special/disliked_videos/'
+        yt_context_menu.append_more_for_video(context_menu, provider, context, video_id,
+                                              is_logged_in=provider.is_logged_in(),
+                                              refresh_container=refresh_container)
+        
+        # Video Statistics
+        yt_context_menu.append_video_stats(context_menu, provider, context, video_id)
+        
+        # Comments
+        yt_context_menu.append_comments(context_menu, provider, context, video_id)
+        
+        # Related Videos
+        yt_context_menu.append_related_videos(context_menu, provider, context, video_id)
+        
+        """
+        Play all videos of the playlist.
+
+        /channel/[CHANNEL_ID]/playlist/[PLAYLIST_ID]/
+        /playlist/[PLAYLIST_ID]/
+        """
+        #some_playlist_match = re.match(r'^(/channel/([^/]+))/playlist/(?P<playlist_id>[^/]+)/$', context.get_path())
+        if some_playlist_match:
+            replace_context_menu = True
+            playlist_id = some_playlist_match.group('playlist_id')
+
+            yt_context_menu.append_play_all_from_playlist(context_menu, provider, context, playlist_id, video_id)
+            yt_context_menu.append_play_all_from_playlist(context_menu, provider, context, playlist_id)
+        
+         #play (ask for quality)
+         #yt_context_menu.append_play_ask_for_quality(context_menu, provider, context, video_id)
+        
+        # play w/ subs & play audio only
+        #if not video_item.live:
+        #    yt_context_menu.append_play_with_subtitles(context_menu, provider, context, video_id)
+        #    yt_context_menu.append_play_audio_only(context_menu, provider, context, video_id)        
+        
+         #'play with...' (external player)
+        if settings.is_support_alternative_player_enabled():
+            yt_context_menu.append_play_with(context_menu, provider, context)
+
+        if provider.is_logged_in():
+             add 'Watch Later' only if we are not in my 'Watch Later' list
+            watch_later_playlist_id = context.get_access_manager().get_watch_later_id()
+            if watch_later_playlist_id:
+                yt_context_menu.append_watch_later(context_menu, provider, context, watch_later_playlist_id, video_id)
+
+            # provide 'remove' for videos in my playlists
+            if video_id in playlist_item_id_dict:
+                playlist_match = re.match('^/channel/mine/playlist/(?P<playlist_id>[^/]+)/$', context.get_path())
+                if playlist_match:
+                    playlist_id = playlist_match.group('playlist_id')
+                    # we support all playlist except 'Watch History'
+                    if playlist_id:
+                        if playlist_id != 'HL' and playlist_id.strip().lower() != 'wl':
+                            playlist_item_id = playlist_item_id_dict[video_id]
+                            video_item.set_playlist_id(playlist_id)
+                            video_item.set_playlist_item_id(playlist_item_id)
+                            context_menu.append((context.localize(provider.LOCAL_MAP['youtube.remove']),
+                                                 'RunPlugin(%s)' % context.create_uri(
+                                                     ['playlist', 'remove', 'video'],
+                                                     {'playlist_id': playlist_id, 'video_id': playlist_item_id,
+                                                      'video_name': video_item.get_name()})))
+
+            is_history = re.match('^/special/watch_history_tv/$', context.get_path())
+            if is_history:
+                yt_context_menu.append_clear_watch_history(context_menu, provider, context)
+
+        # go to [CHANNEL]
+        if channel_id and channel_name:
+            # only if we are not directly in the channel provide a jump to the channel
+            if kodion.utils.create_path('channel', channel_id) != context.get_path():
+                video_item.set_channel_id(channel_id)
+                yt_context_menu.append_go_to_channel(context_menu, provider, context, channel_id, channel_name)
+        
+        # subscribe to [CHANNEL]
+        if provider.is_logged_in():
+            # subscribe to the channel of the video
+            video_item.set_subscription_id(channel_id)
+            yt_context_menu.append_subscribe_to_channel(context_menu, provider, context, channel_id, channel_name)     
+        
+        # Queue Video
+        yt_context_menu.append_queue_video(context_menu, provider, context)  
+        
+        if provider.is_logged_in():
+            # Add to...
+            yt_context_menu.append_add_video_to_playlist(context_menu, provider, context, video_id)
+            # Rate Video
+            yt_context_menu.append_rate_video(context_menu, provider, context, video_id)  
+   
+        # mark as (un)watched
+        if not video_item.live and use_play_data:
+            if play_data.get('play_count') is None or int(play_data.get('play_count')) == 0:
+                yt_context_menu.append_mark_watched(context_menu, provider, context, video_id)
+            else:
+                yt_context_menu.append_mark_unwatched(context_menu, provider, context, video_id)
+            
+            # reset resume position
+            #if int(play_data.get('played_percent', '0')) > 0 or float(play_data.get('played_time', '0.0')) > 0.0:
+            #    yt_context_menu.append_reset_resume_point(context_menu, provider, context, video_id) 
+        
+        # links from description        
+        yt_context_menu.append_content_from_description(context_menu, provider, context, video_id)
+        
+        # Refresh
+        yt_context_menu.append_refresh(context_menu, provider, context)
+       
+        if len(context_menu) > 0:
+            video_item.set_context_menu(context_menu, replace=replace_context_menu)
 
 
 def update_fanarts(provider, context, channel_items_dict):
