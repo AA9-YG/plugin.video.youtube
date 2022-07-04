@@ -202,7 +202,7 @@ def update_playlist_infos(provider, context, playlist_id_dict, channel_items_dic
         channel_name = snippet.get('channelTitle', '')
         context_menu = []
         # play all videos of the playlist
-        yt_context_menu.append_play_all_from_playlist(context_menu, provider, context, playlist_id)
+        #yt_context_menu.append_play_all_from_playlist(context_menu, provider, context, playlist_id)
 
         if provider.is_logged_in():
             if channel_id != 'mine':
