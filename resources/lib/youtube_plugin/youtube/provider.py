@@ -1453,7 +1453,7 @@ class Provider(kodion.AbstractProvider):
                                                  context.create_resource_path('media', 'watch_later.png'))
                 watch_later_item.set_fanart(self.get_fanart(context))
                 context_menu = []
-                #yt_context_menu.append_play_all_from_playlist(context_menu, self, context, watch_later_playlist_id)
+                yt_context_menu.append_play_all_from_playlist(context_menu, self, context, watch_later_playlist_id)
                 watch_later_item.set_context_menu(context_menu)
                 result.append(watch_later_item)
 
