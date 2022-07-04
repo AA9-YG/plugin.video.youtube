@@ -32,9 +32,9 @@ class FavoriteList(Storage):
 
         return sorted(result, key=_sort, reverse=False)
 
-    def add(self, base_item):
-        item_json_data = items.to_json(base_item)
-        self._set(base_item.get_id(), item_json_data)
+    #def add(self, base_item):
+    #    item_json_data = items.to_json(base_item)
+    #    self._set(base_item.get_id(), item_json_data)
 
     def remove(self, base_item):
         self._remove(base_item.get_id())
