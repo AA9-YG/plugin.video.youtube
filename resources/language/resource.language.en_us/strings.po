@@ -985,7 +985,7 @@ msgid "playback history"
 msgstr ""
 
 msgctxt "#30674"
-msgid "Reset Resume Point"
+msgid "Reset Resume"
 msgstr ""
 
 msgctxt "#30675"
