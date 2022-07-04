@@ -992,7 +992,7 @@ msgid "playback history"
 msgstr ""
 
 msgctxt "#30674"
-msgid "Reset Resume"
+msgid "Reset Resume Point"
 msgstr ""
 
 msgctxt "#30675"
