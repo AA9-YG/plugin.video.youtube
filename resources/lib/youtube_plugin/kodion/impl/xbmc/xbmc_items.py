@@ -120,8 +120,8 @@ def to_video_item(context, video_item):
     else:
         item.setArt({'icon': thumb, 'thumb': thumb, 'fanart': fanart})
 
-    if video_item.get_context_menu() is not None:
-        item.addContextMenuItems(video_item.get_context_menu(), replaceItems=video_item.replace_context_menu())
+    #f video_item.get_context_menu() is not None:
+    #   item.addContextMenuItems(video_item.get_context_menu(), replaceItems=video_item.replace_context_menu())
 
     item.setProperty('IsPlayable', 'true')
 
