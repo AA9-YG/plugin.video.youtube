@@ -17,7 +17,7 @@ import requests
 from ... import kodion
 from datetime import timedelta
 from ...kodion import utils
-from ...youtube.helper import yt_context_menu, v3
+from ...youtube.helper import yt_context_menu
 #from ...youtube.helper import v3
 
 try:
