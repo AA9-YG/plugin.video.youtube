@@ -121,11 +121,9 @@ def to_video_item(context, video_item):
         item.setArt({'icon': thumb, 'thumb': thumb, 'fanart': fanart})
 
     if video_item.get_context_menu() is not None:
-       context.log_debug('Addon context menu: |%s|' % video_item.get_context_menu())
-       context.log_debug('List Item Special Sort value: |%s|' % item.getProperty('SpecialSort'))
+       #context.log_debug('Addon context menu: |%s|' % video_item.get_context_menu())
+       #context.log_debug('List Item Special Sort value: |%s|' % item.getProperty('SpecialSort'))
        item.addContextMenuItems(video_item.get_context_menu(), replaceItems=video_item.replace_context_menu())
-       item.setProperty('SpecialSort', 'bottom')
-       context.log_debug('Addon context menu after setProperty: |%s|' % video_item.get_context_menu())
 
     item.setProperty('IsPlayable', 'true')
     
