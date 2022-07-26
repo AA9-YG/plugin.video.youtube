@@ -12,13 +12,13 @@ from six import PY2
 
 import re
 import time
-#import requests
+import requests
 
 from ... import kodion
 from datetime import timedelta
 from ...kodion import utils
-from ...youtube.helper import yt_context_menu
-from ...youtube.helper import v3
+from ...youtube.helper import yt_context_menu, v3
+#from ...youtube.helper import v3
 
 try:
     import inputstreamhelper
