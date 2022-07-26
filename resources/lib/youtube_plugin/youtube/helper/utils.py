@@ -12,7 +12,7 @@ from six import PY2
 
 import re
 import time
-import requests
+#import requests
 
 from ... import kodion
 from datetime import timedelta
@@ -342,39 +342,39 @@ def update_play_info(provider, context, video_id, video_item, video_stream, use_
             video_item.set_last_played(play_data.get('last_played'))
             
     # Video Information while watching video
-    vid_url = 'https://returnyoutubedislikeapi.com/votes?videoId=' + str(video_id)
-    response = requests.get(vid_url)
+    #vid_url = 'https://returnyoutubedislikeapi.com/votes?videoId=' + str(video_id)
+    #response = requests.get(vid_url)
     
-    dt = snippet['publishedAt']
-    dt2 = utils.datetime_parser.strptime(dt, fmt='%Y-%m-%dT%H:%M:%S.%fZ')
-    dur1 = yt_item.get('contentDetails', {}).get('duration', '')
-    dur_parse1 = utils.datetime_parser.parse(dur1)
+    #dt = snippet['publishedAt']
+    #dt2 = utils.datetime_parser.strptime(dt, fmt='%Y-%m-%dT%H:%M:%S.%fZ')
+    #dur1 = yt_item.get('contentDetails', {}).get('duration', '')
+    #dur_parse1 = utils.datetime_parser.parse(dur1)
     
-    if dt2.hour < 10:
-        hour1 = '0%s' % dt2.hour
-    else:
-        hour1 = dt2.hour
+    #if dt2.hour < 10:
+    #    hour1 = '0%s' % dt2.hour
+    #else:
+    #    hour1 = dt2.hour
      
-    if dt2.minute < 10:
-        minute1 = '0%s' % dt2.minute
-    else:
-        minute1 = dt2.minute
+    #if dt2.minute < 10:
+    #    minute1 = '0%s' % dt2.minute
+    #else:
+    #    minute1 = dt2.minute
         
-    dt_string1 = '%s/%s/%s @ %s:%s' % (dt2.month, dt2.day, dt2.year, hour1, minute1)
+    #dt_string1 = '%s/%s/%s @ %s:%s' % (dt2.month, dt2.day, dt2.year, hour1, minute1)
     
-    stats = response.json()
+    #stats = response.json()
     
-    vid_title = '[B]Video Title: %s[/B]\n' % snippet['title']
-    ch_title = '[B]Channel: %s[/B]\n' % snippet.get('channelTitle', '')
-    views = '[B]Views: [COLOR cyan]%s[/COLOR][/B]\n' % stats['viewCount'] 
-    likes = '[B]Likes: [COLOR lime]%s[/COLOR][/B]\n' % stats['likes']
-    dislikes = '[B]Dislikes: [COLOR red]%s[/COLOR][/B]\n' % stats['dislikes']
-    date1 = '[B]Published Date: %s[/B]\n' % dt_string1
-    duration2 = '[B]Duration: %s[/B]\n' % dur_parse1
-    vid_id = '[B]Video ID: %s\n[/B]' % video_id
-    description2 = '[B]\nDescription:[/B] %s' % kodion.utils.strip_html_from_text(snippet['description'])
+    #vid_title = '[B]Video Title: %s[/B]\n' % snippet['title']
+    #ch_title = '[B]Channel: %s[/B]\n' % snippet.get('channelTitle', '')
+    #views = '[B]Views: [COLOR cyan]%s[/COLOR][/B]\n' % stats['viewCount'] 
+    #likes = '[B]Likes: [COLOR lime]%s[/COLOR][/B]\n' % stats['likes']
+    #dislikes = '[B]Dislikes: [COLOR red]%s[/COLOR][/B]\n' % stats['dislikes']
+    #date1 = '[B]Published Date: %s[/B]\n' % dt_string1
+    #duration2 = '[B]Duration: %s[/B]\n' % dur_parse1
+    #vid_id = '[B]Video ID: %s\n[/B]' % video_id
+    #description2 = '[B]\nDescription:[/B] %s' % kodion.utils.strip_html_from_text(snippet['description'])
     
-    vid_info = vid_title + ch_title + views + likes + dislikes + date1 + duration2 + vid_id + description2            
+    #vid_info = vid_title + ch_title + views + likes + dislikes + date1 + duration2 + vid_id + description2            
 
     # plot
     channel_name = snippet.get('channelTitle', '')
@@ -385,7 +385,7 @@ def update_play_info(provider, context, video_id, video_item, video_stream, use_
     # video_item.add_cast(channel_name)
     video_item.add_artist(channel_name)
     #video_item.set_plot(description)
-    video_item.set_plot(vid_info)
+    #video_item.set_plot(vid_info)
 
     # date time
     if 'publishedAt' in snippet and snippet['publishedAt']:
