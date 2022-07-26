@@ -18,7 +18,7 @@ from ... import kodion
 from datetime import timedelta
 from ...kodion import utils
 from ...youtube.helper import yt_context_menu
-from ...youtube.helper import v3
+#from ...youtube.helper import v3
 
 try:
     import inputstreamhelper
@@ -554,7 +554,7 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
                                               refresh_container=refresh_container)
         
         # Video Statistics
-        yt_context_menu.append_video_stats(context_menu, provider, context, video_id)
+        #yt_context_menu.append_video_stats(context_menu, provider, context, video_id)
         
         # Comments
         yt_context_menu.append_comments(context_menu, provider, context, video_id)
