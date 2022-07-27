@@ -176,11 +176,15 @@ def _process_video_stats(provider, context):
     #stats.extend(response.text)
     stats = response.json()
     
+    view_count = "{:,}".format(stats['viewCount'])
+    like_count = "{:,}".format(stats['likes'])
+    dislike_count = "{:,}".format(stats['dislikes'])
+    
     vid_title = '[B]Video Title: %s[/B]\n' % snippet['title']
     ch_title = '[B]Channel: %s[/B]\n' % snippet.get('channelTitle', '')
-    views = '[B]Views: [COLOR cyan]%s[/COLOR][/B]\n' % stats['viewCount'] 
-    likes = '[B]Likes: [COLOR lime]%s[/COLOR][/B]\n' % stats['likes']
-    dislikes = '[B]Dislikes: [COLOR red]%s[/COLOR][/B]\n' % stats['dislikes']
+    views = '[B]Views: [COLOR cyan]%s[/COLOR][/B]\n' % view_count 
+    likes = '[B]Likes: [COLOR lime]%s[/COLOR][/B]\n' % like_count
+    dislikes = '[B]Dislikes: [COLOR red]%s[/COLOR][/B]\n' % dislike_count
     date = '[B]Published Date: %s[/B]\n' % dt_string
     duration = '[B]Duration: %s[/B]\n' % dur_parse
     vid_id = '[B]Video ID: %s\n[/B]' % video_id
