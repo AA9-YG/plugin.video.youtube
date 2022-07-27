@@ -314,8 +314,8 @@ def update_play_info(provider, context, video_id, video_item, video_stream, use_
     video_item.live = snippet.get('liveBroadcastContent') == 'live'
 
     # set the title
-    if not video_item.get_title():
-        video_item.set_title(snippet['title'])
+    #if not video_item.get_title():
+    #    video_item.set_title(snippet['title'])
 
     # duration
     if not video_item.live and use_play_data and play_data.get('total_time'):
