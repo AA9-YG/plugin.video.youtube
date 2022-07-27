@@ -381,9 +381,9 @@ def update_play_info(provider, context, video_id, video_item, video_stream, use_
     description = kodion.utils.strip_html_from_text(snippet['description'])
     if channel_name and settings.get_bool('youtube.view.description.show_channel_name', True):
         description = '%s[CR][CR]%s' % (ui.uppercase(ui.bold(channel_name)), description)
-    #video_item.set_studio(channel_name)
-    #video_item.add_cast(channel_name)
-    #video_item.add_artist(channel_name)
+    video_item.set_studio(channel_name)
+    video_item.add_cast(channel_name)
+    video_item.add_artist(channel_name)
     #video_item.set_plot(description)
     #video_item.set_plot(vid_info)
 
