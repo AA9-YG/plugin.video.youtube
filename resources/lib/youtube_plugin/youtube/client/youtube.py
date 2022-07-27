@@ -183,6 +183,14 @@ class YouTube(LoginClient):
 
         params = {'id': video_id}
         return self.perform_v3_request(method='GET', path='videos/getRating', params=params)
+    
+    def get_sub_count(self, channel_id):
+        if isinstance(channel_id, list):
+            channel_id = ','.join(channel_id)
+            
+        params = {'part': 'statistics',
+                  'id': channel_id}
+        return self.perform_v3_request(method='GET', path='channels', params=params)
 
     def rate_video(self, video_id, rating='like'):
         """
