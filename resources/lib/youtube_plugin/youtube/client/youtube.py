@@ -241,7 +241,7 @@ class YouTube(LoginClient):
         return self.perform_v3_request(method='GET', path='subscriptions', params=params)
 
     def get_guide_category(self, guide_category_id, page_token=''):
-        params = {'part': 'snippet,contentDetails,brandingSettings',
+        params = {'part': 'snippet,contentDetails,statistics,brandingSettings',
                   'maxResults': str(self._max_results),
                   'categoryId': guide_category_id,
                   'regionCode': self._region,
@@ -560,7 +560,7 @@ class YouTube(LoginClient):
         if isinstance(video_id, list):
             video_id = ','.join(video_id)
 
-        parts = ['snippet,contentDetails,status']
+        parts = ['snippet,contentDetails,statistics,status']
         if live_details:
             parts.append(',liveStreamingDetails')
 
