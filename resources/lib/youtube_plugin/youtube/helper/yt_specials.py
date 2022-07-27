@@ -157,7 +157,7 @@ def _process_video_stats(provider, context):
     yt_item = video_data[video_id]
     yt_item2 = channel_data[channel_id]
     snippet = yt_item['snippet']  # crash if not conform
-    #statistics = yt_item2['statistics']
+    statistics = yt_item2['statistics']
     
     dt = snippet['publishedAt']
     datetime = kodion.utils.datetime_parser.strptime(dt, fmt='%Y-%m-%dT%H:%M:%S.%fZ')
@@ -183,7 +183,7 @@ def _process_video_stats(provider, context):
     view_count = "{:,}".format(stats['viewCount'])
     like_count = "{:,}".format(stats['likes'])
     dislike_count = "{:,}".format(stats['dislikes'])
-    sub_count = str(yt_item2.get('statistics', {}).get('subscriberCount', ''))
+    sub_count = str(statistics.get('subscriberCount', ''))   #(yt_item2.get('statistics', {}).get('subscriberCount', ''))
     
     vid_title = '[B]Video Title: %s[/B]\n' % snippet['title']
     ch_title = '[B]Channel: %s[/B]\n' % snippet.get('channelTitle', '')
