@@ -474,10 +474,10 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
                 title = u'({live} @ {time}) {title}' \
                     .format(live=context.localize(provider.LOCAL_MAP['youtube.live']), date=start_date, time=start_time, title=snippet['title'])
             video_item.set_title(title)
-        #else:
+        else:
             # set the title
-            #if not video_item.get_title():
-            #    video_item.set_title(snippet['title'])
+            if not video_item.get_title():
+                video_item.set_title(snippet['title'])
 
         """
         This is experimental. We try to get the most information out of the title of a video.
