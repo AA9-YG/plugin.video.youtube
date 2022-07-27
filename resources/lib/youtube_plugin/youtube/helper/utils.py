@@ -374,7 +374,7 @@ def update_play_info(provider, context, video_id, video_item, video_stream, use_
     vid_id = '[B]Video ID: %s\n[/B]' % video_id
     description2 = '[B]\nDescription:[/B] %s' % kodion.utils.strip_html_from_text(snippet['description'])
     
-    vid_info = vid_title + ch_title + views + likes + dislikes + date1 + duration2 + vid_id + description2            
+    vid_info = 'Hello' #vid_title + ch_title + views + likes + dislikes + date1 + duration2 + vid_id + description2            
 
     # plot
     channel_name = snippet.get('channelTitle', '')
@@ -385,7 +385,7 @@ def update_play_info(provider, context, video_id, video_item, video_stream, use_
     video_item.add_cast(channel_name)
     video_item.add_artist(channel_name)
     #video_item.set_plot(description)
-    #video_item.set_plot(vid_info)
+    video_item.set_plot(vid_info)
 
     # date time
     if 'publishedAt' in snippet and snippet['publishedAt']:
@@ -504,7 +504,7 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
         #video_item.set_studio(channel_name)
         #video_item.add_cast(channel_name)
         #video_item.add_artist(channel_name)
-        #video_item.set_plot(description)
+        video_item.set_plot('Hello') #(description)
 
         # date time
         if not datetime and 'publishedAt' in snippet and snippet['publishedAt']:
