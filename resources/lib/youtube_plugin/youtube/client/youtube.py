@@ -529,7 +529,7 @@ class YouTube(LoginClient):
         if isinstance(channel_id, list):
             channel_id = ','.join(channel_id)
 
-        params = {'part': 'snippet,contentDetails,brandingSettings'}
+        params = {'part': 'snippet,contentDetails,statistics,brandingSettings'}
         if channel_id != 'mine':
             params['id'] = channel_id
         else:
