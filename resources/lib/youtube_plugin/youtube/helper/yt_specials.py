@@ -149,7 +149,7 @@ def _process_video_stats(provider, context):
     vid_url = 'https://returnyoutubedislikeapi.com/votes?videoId=' + str(video_id)
     response = requests.get(vid_url)
     
-    provider.set_content_type(context, kodion.constants.content_type.VIDEOS)
+    #provider.set_content_type(context, kodion.constants.content_type.VIDEOS)
     resource_manager = provider.get_resource_manager(context)
     
     video_data = resource_manager.get_videos([video_id])
