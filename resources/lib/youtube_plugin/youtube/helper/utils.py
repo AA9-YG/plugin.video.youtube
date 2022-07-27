@@ -122,10 +122,10 @@ def update_channel_infos(provider, context, channel_id_dict, subscription_id_dic
         yt_item = channel_data[channel_id]
         channel_item = channel_id_dict[channel_id]
 
-        snippet = yt_item['snippet']
+        snippet = yt_item['statistics']  #['snippet']
 
         # title
-        title = snippet['title']
+        title = str(snippet['subscriberCount']) #['title']
         channel_item.set_name(title)
 
         # image
