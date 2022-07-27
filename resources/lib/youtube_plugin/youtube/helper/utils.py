@@ -554,7 +554,7 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
                                               refresh_container=refresh_container)
         
         # Video Statistics
-        yt_context_menu.append_video_stats(context_menu, provider, context, video_id)
+        yt_context_menu.append_video_stats(context_menu, provider, context, video_id, channel_id)
         
         # Comments
         yt_context_menu.append_comments(context_menu, provider, context, video_id)
