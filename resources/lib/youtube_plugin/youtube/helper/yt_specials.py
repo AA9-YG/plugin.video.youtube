@@ -152,10 +152,11 @@ def _process_video_stats(provider, context):
     resource_manager = provider.get_resource_manager(context)
     
     video_data = resource_manager.get_videos([video_id])
-    channel_data = resource_manager.get_channels(channel_ids)
+    channel_data = resource_manager.get_channels(channel_id)
     yt_item = video_data[video_id]
+    yt_item2 = channel_data[channel_id]
     snippet = yt_item['snippet']  # crash if not conform
-    statistics = yt_item['statistics']
+    statistics = yt_item2['statistics']
     
     dt = snippet['publishedAt']
     datetime = kodion.utils.datetime_parser.strptime(dt, fmt='%Y-%m-%dT%H:%M:%S.%fZ')
