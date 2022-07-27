@@ -152,6 +152,7 @@ def _process_video_stats(provider, context):
     resource_manager = provider.get_resource_manager(context)
     
     video_data = resource_manager.get_videos([video_id])
+    channel_data = resource_manager.get_channels(channel_ids)
     yt_item = video_data[video_id]
     snippet = yt_item['snippet']  # crash if not conform
     statistics = yt_item['statistics']
