@@ -179,9 +179,11 @@ def _process_video_stats(provider, context):
     view_count = "{:,}".format(stats['viewCount'])
     like_count = "{:,}".format(stats['likes'])
     dislike_count = "{:,}".format(stats['dislikes'])
+    sub_count = yt_item.get('statistics', {}).get('subscriberCount', '')
     
     vid_title = '[B]Video Title: %s[/B]\n' % snippet['title']
     ch_title = '[B]Channel: %s[/B]\n' % snippet.get('channelTitle', '')
+    subscribers = '[B]Subscribers: %s[/B]\n' % sub_count
     views = '[B]Views: [COLOR cyan]%s[/COLOR][/B]\n' % view_count 
     likes = '[B]Likes: [COLOR lime]%s[/COLOR][/B]\n' % like_count
     dislikes = '[B]Dislikes: [COLOR red]%s[/COLOR][/B]\n' % dislike_count
@@ -190,7 +192,7 @@ def _process_video_stats(provider, context):
     vid_id = '[B]Video ID: %s\n[/B]' % video_id
     description = '[B]\nDescription:[/B] %s' % kodion.utils.strip_html_from_text(snippet['description'])
     
-    vid_info = vid_title + ch_title + views + likes + dislikes + date + duration + vid_id + description
+    vid_info = vid_title + ch_title + subscribers + views + likes + dislikes + date + duration + vid_id + description
     result = dialog.textviewer('Video Information', vid_info)
     
     return result
