@@ -381,11 +381,11 @@ def update_play_info(provider, context, video_id, video_item, video_stream, use_
     description = kodion.utils.strip_html_from_text(snippet['description'])
     if channel_name and settings.get_bool('youtube.view.description.show_channel_name', True):
         description = '%s[CR][CR]%s' % (ui.uppercase(ui.bold(channel_name)), description)
-    video_item.set_studio(channel_name)
-    # video_item.add_cast(channel_name)
-    video_item.add_artist(channel_name)
+    #video_item.set_studio(channel_name)
+    #video_item.add_cast(channel_name)
+    #video_item.add_artist(channel_name)
     #video_item.set_plot(description)
-    video_item.set_plot(vid_info)
+    #video_item.set_plot(vid_info)
 
     # date time
     if 'publishedAt' in snippet and snippet['publishedAt']:
@@ -476,8 +476,8 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
             video_item.set_title(title)
         else:
             # set the title
-            if not video_item.get_title():
-                video_item.set_title(snippet['title'])
+            #if not video_item.get_title():
+            #    video_item.set_title(snippet['title'])
 
         """
         This is experimental. We try to get the most information out of the title of a video.
@@ -501,10 +501,10 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
         description = kodion.utils.strip_html_from_text(snippet['description'])
         if channel_name and settings.get_bool('youtube.view.description.show_channel_name', True):
             description = '%s[CR][CR]%s' % (ui.uppercase(ui.bold(channel_name)), description)
-        video_item.set_studio(channel_name)
-        # video_item.add_cast(channel_name)
-        video_item.add_artist(channel_name)
-        video_item.set_plot(description)
+        #video_item.set_studio(channel_name)
+        #video_item.add_cast(channel_name)
+        #video_item.add_artist(channel_name)
+        #video_item.set_plot(description)
 
         # date time
         if not datetime and 'publishedAt' in snippet and snippet['publishedAt']:
