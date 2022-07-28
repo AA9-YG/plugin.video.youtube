@@ -146,18 +146,21 @@ def _process_video_stats(provider, context):
     video_id = context.get_param('video_id', '')
     channel_id = context.get_param('channel_id', '')
     channel_name = context.get_param('channel_name', '')
+    key = "AIzaSyAT-LCjBFiQdRdYTO0XL312EIFx6SKm1lU"
     vid_url = 'https://returnyoutubedislikeapi.com/votes?videoId=' + str(video_id)
-    response = requests.get(vid_url)
+    vid_url2 = "https://www.googleapis.com/youtube/v3/channels?part=statistics&id=" + channel_id + "&key=" + key
     
-    #provider.set_content_type(context, kodion.constants.content_type.VIDEOS)
+    response = requests.get(vid_url)
+    response2 = requests.get(vid_url2)
+    #subs=json.loads(data)["items"][0]["statistics"]["subscriberCount"]
+    
+    provider.set_content_type(context, kodion.constants.content_type.VIDEOS)
     resource_manager = provider.get_resource_manager(context)
     
     video_data = resource_manager.get_videos([video_id])
-    channel_data = resource_manager.get_channels([channel_id])
     yt_item = video_data[video_id]
     yt_item2 = channel_data[channel_id]
     snippet = yt_item['snippet']  # crash if not conform
-    statistics = yt_item2['statistics']
     
     dt = snippet['publishedAt']
     datetime = kodion.utils.datetime_parser.strptime(dt, fmt='%Y-%m-%dT%H:%M:%S.%fZ')
@@ -179,11 +182,12 @@ def _process_video_stats(provider, context):
     #stats = []
     #stats.extend(response.text)
     stats = response.json()
+    channel_stats = response2.json()
     
     view_count = "{:,}".format(stats['viewCount'])
     like_count = "{:,}".format(stats['likes'])
     dislike_count = "{:,}".format(stats['dislikes'])
-    sub_count = str(statistics.get('subscriberCount', ''))   #(yt_item2.get('statistics', {}).get('subscriberCount', ''))
+    sub_count = str(channel_stats['subscriberCount'])
     
     vid_title = '[B]Video Title: %s[/B]\n' % snippet['title']
     ch_title = '[B]Channel: %s[/B]\n' % snippet.get('channelTitle', '')
