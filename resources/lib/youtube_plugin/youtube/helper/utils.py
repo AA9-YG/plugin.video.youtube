@@ -17,7 +17,7 @@ import requests
 from ... import kodion
 from datetime import timedelta
 from ...kodion import utils
-from ...youtube.helper import yt_context_menu
+from ...youtube.helper import yt_context_menu, play_info
 #from ...youtube.helper import v3
 
 try:
@@ -374,7 +374,7 @@ def update_play_info(provider, context, video_id, video_item, video_stream, use_
     vid_id = '[B]Video ID: %s\n[/B]' % video_id
     description2 = '[B]\nDescription:[/B] %s' % kodion.utils.strip_html_from_text(snippet['description'])
     
-    vid_info = 'Hello' #vid_title + ch_title + views + likes + dislikes + date1 + duration2 + vid_id + description2            
+    vid_info = play_info.get_play_info(provider, context)          
 
     # plot
     channel_name = snippet.get('channelTitle', '')
