@@ -5,7 +5,7 @@ from ... import kodion
 from ...kodion.utils import datetime_parser
 #from ...kodion.items import DirectoryItem, UriItem
 #from ...youtube.helper import v3, tv, extract_urls, UrlResolver, UrlToItemConverter
-from . import utils
+#from . import utils
 
 
 def num_fmt(num):
