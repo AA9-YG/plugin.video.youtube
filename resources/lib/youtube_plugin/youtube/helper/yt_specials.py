@@ -186,6 +186,7 @@ def _process_video_stats(provider, context):
     view_count = "{:,}".format(stats['viewCount'])
     like_count = "{:,}".format(stats['likes'])
     dislike_count = "{:,}".format(stats['dislikes'])
+    context.log_debug('Channel Stats: %s' % channel_stats)
     sub_count = str(channel_stats['items'][0]['statistics']['subscriberCount'])
     
     vid_title = '[B]Video Title: %s[/B]\n' % snippet['title']
