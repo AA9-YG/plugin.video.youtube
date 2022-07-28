@@ -189,13 +189,13 @@ def _process_video_stats(provider, context):
     
     try:
         c_stats2 = int(c_stats)
-        context.log_debug('Sub count after int conversion: %s' % channel_stats)
+        context.log_debug('Sub count after int conversion: %s' % c_stats)
     except:
         sub_count = 'No Subscribers or Hidden'
         context.log_debug('This sub count is in the exception block')
     else:
         if c_stats2 > 0:
-            sub_count = "{:,}".format(c_stats)
+            sub_count = "{:,}".format(c_stats2)
             context.log_debug('Sub count is greater than zero')
         else:
             sub_count = 'No Subscribers or Hidden'
