@@ -183,16 +183,16 @@ def _process_video_stats(provider, context):
     view_count = "{:,}".format(stats['viewCount'])
     like_count = "{:,}".format(stats['likes'])
     dislike_count = "{:,}".format(stats['dislikes'])
-    context.log_debug('Channel Stats: %s' % channel_stats)
+    #context.log_debug('Channel Stats: %s' % channel_stats)
     c_stats = channel_stats['items'][0]['statistics']['subscriberCount']
     
     try:
-        if (int(c_stats)) < 1:
+        c_stats2 = int(c_stats)
+        if c_stats2 < 1:
             sub_count = 'No Subscribers or Hidden'
         else:
             sub_count = "{:,}".format(c_stats)
-    except ValueError:
-        # Handle the exception
+    except (TypeError, ValueError):
         sub_count = 'No Subscribers or Hidden'
             
     vid_title = '[B]Video Title: %s[/B]\n' % snippet['title']
@@ -204,9 +204,10 @@ def _process_video_stats(provider, context):
     date = '[B]Published Date: %s[/B]\n' % dt_string
     duration = '[B]Duration: %s[/B]\n' % dur_parse
     vid_id = '[B]Video ID: %s\n[/B]' % video_id
+    ch_id = '[B]Channel ID: %s\n[/B]' % channel_id
     description = '[B]\nDescription:[/B] %s' % kodion.utils.strip_html_from_text(snippet['description'])
     
-    vid_info = vid_title + ch_title + subscribers + views + likes + dislikes + date + duration + vid_id + description
+    vid_info = vid_title + ch_title + subscribers + views + likes + dislikes + date + duration + vid_id + ch_id + description
     result = dialog.textviewer('Video Information', vid_info)
     
     return result
