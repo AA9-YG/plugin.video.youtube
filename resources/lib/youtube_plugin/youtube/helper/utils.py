@@ -202,7 +202,7 @@ def update_playlist_infos(provider, context, playlist_id_dict, channel_items_dic
         channel_name = snippet.get('channelTitle', '')
         context_menu = []
         # play all videos of the playlist
-        #yt_context_menu.append_play_all_from_playlist(context_menu, provider, context, playlist_id)
+        yt_context_menu.append_play_all_from_playlist(context_menu, provider, context, playlist_id)
 
         if provider.is_logged_in():
             if channel_id != 'mine':
@@ -463,21 +463,21 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
             video_item.set_play_count(0)
 
         scheduled_start = video_data[video_id].get('liveStreamingDetails', {}).get('scheduledStartTime')
-        #if scheduled_start:
-        #    datetime = utils.datetime_parser.parse(scheduled_start)
-        #    video_item.set_scheduled_start_utc(datetime)
-        #    start_date, start_time = utils.datetime_parser.get_scheduled_start(datetime)
-        #    if start_date:
-        #        title = u'({live} {date}@{time}) {title}' \
-        #            .format(live=context.localize(provider.LOCAL_MAP['youtube.live']), date=start_date, time=start_time, title=snippet['title'])
-        #    else:
-        #        title = u'({live} @ {time}) {title}' \
-        #            .format(live=context.localize(provider.LOCAL_MAP['youtube.live']), date=start_date, time=start_time, title=snippet['title'])
-        #    video_item.set_title(title)
-        #else:
-            # set the title
-        #    if not video_item.get_title():
-        #        video_item.set_title(snippet['title'])
+        if scheduled_start:
+            datetime = utils.datetime_parser.parse(scheduled_start)
+            video_item.set_scheduled_start_utc(datetime)
+            start_date, start_time = utils.datetime_parser.get_scheduled_start(datetime)
+            if start_date:
+                title = u'({live} {date}@{time}) {title}' \
+                    .format(live=context.localize(provider.LOCAL_MAP['youtube.live']), date=start_date, time=start_time, title=snippet['title'])
+            else:
+                title = u'({live} @ {time}) {title}' \
+                    .format(live=context.localize(provider.LOCAL_MAP['youtube.live']), date=start_date, time=start_time, title=snippet['title'])
+            video_item.set_title(title)
+        else:
+             set the title
+            if not video_item.get_title():
+                video_item.set_title(snippet['title'])
 
         """
         This is experimental. We try to get the most information out of the title of a video.
@@ -501,10 +501,10 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
         description = kodion.utils.strip_html_from_text(snippet['description'])
         if channel_name and settings.get_bool('youtube.view.description.show_channel_name', True):
             description = '%s[CR][CR]%s' % (ui.uppercase(ui.bold(channel_name)), description)
-        #video_item.set_studio(channel_name)
-        #video_item.add_cast(channel_name)
-        #video_item.add_artist(channel_name)
-        video_item.set_plot('Hello') #(description)
+        video_item.set_studio(channel_name)
+        video_item.add_cast(channel_name)
+        video_item.add_artist(channel_name)
+        video_item.set_plot(description)
 
         # date time
         if not datetime and 'publishedAt' in snippet and snippet['publishedAt']:
@@ -527,7 +527,7 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
             image = get_thumbnail(thumb_size, snippet.get('thumbnails', {}))
         if image.endswith('_live.jpg'):
             image = ''.join([image, '?ct=', thumb_stamp])
-        #video_item.set_image(image)
+        video_item.set_image(image)
 
         # set fanart
         video_item.set_fanart(provider.get_fanart(context))
