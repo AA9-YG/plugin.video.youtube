@@ -1,6 +1,13 @@
 import math
 import requests 
 
+from ... import kodion
+from ...kodion.utils import datetime_parser
+#from ...kodion.items import DirectoryItem, UriItem
+from ...youtube.helper import v3, tv, extract_urls, UrlResolver, UrlToItemConverter
+from . import utils
+
+
 def num_fmt(num):
     i_offset = 15 # change this if you extend the symbols!!!
     prec = 3
@@ -54,29 +61,31 @@ def get_play_info(provider, context):
     stats = response.json()
     channel_stats = response2.json()
     
-    view_count = "{:,}".format(stats['viewCount'])
-    like_count = "{:,}".format(stats['likes'])
-    dislike_count = "{:,}".format(stats['dislikes'])
+    v_count = int(stats['viewCount'])
+    view_count = num_fmt(v_count)
+    l_count = int(stats['likes'])
+    like_count = num_fmt(l_count)
+    d_count = int(stats['dislikes'])
+    dislike_count = num_fmt(d_count)
     c_stats = channel_stats['items'][0]['statistics']['subscriberCount']
     
     try:
         c_stats2 = int(c_stats)
         context.log_debug('Sub count after int conversion: %s' % c_stats)
     except (TypeError, ValueError):
-        sub_count = 'No Subscribers or Hidden'
-        context.log_debug('This sub count is in the exception block')
+        sub_count = 'None/Hidden'
     else:
         if c_stats2 > 0:
-            sub_count = "{:,}".format(c_stats2)
-            context.log_debug('Sub count is greater than zero')
+            sub_count = num_fmt(c_stats2)
         else:
-            sub_count = 'No Subscribers or Hidden'
-            context.log_debug('Sub count is not greater than zero')
+            sub_count = 'None/Hidden'
         
-    subscribers = '[B]Subscribers: %s[/B]\n' % sub_count
-    views = '[B]Views: [COLOR cyan]%s[/COLOR][/B]\n' % view_count 
-    likes = '[B]Likes: [COLOR lime]%s[/COLOR][/B]\n' % like_count
-    dislikes = '[B]Dislikes: [COLOR red]%s[/COLOR][/B]\n' % dislike_count
-    date = '[B]Published Date: %s[/B]\n' % dt_string
+    subscribers = '\t[B]Subscribers: %s[/B]\t' % sub_count
+    views = '[B]Views: [COLOR cyan]%s[/COLOR][/B]\t' % view_count 
+    likes = '[B]Likes: [COLOR lime]%s[/COLOR][/B]\t' % like_count
+    dislikes = '[B]Dislikes: [COLOR red]%s[/COLOR][/B]\t' % dislike_count
+    date = '[B]Date: %s[/B]\t' % dt_string
     
     vid_info = subscribers + views + likes + dislikes + date
+    
+    return vid_info
