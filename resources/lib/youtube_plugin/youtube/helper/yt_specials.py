@@ -159,7 +159,6 @@ def _process_video_stats(provider, context):
     
     video_data = resource_manager.get_videos([video_id])
     yt_item = video_data[video_id]
-    yt_item2 = channel_data[channel_id]
     snippet = yt_item['snippet']  # crash if not conform
     
     dt = snippet['publishedAt']
