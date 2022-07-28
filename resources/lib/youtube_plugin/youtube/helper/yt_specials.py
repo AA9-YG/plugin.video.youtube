@@ -152,7 +152,6 @@ def _process_video_stats(provider, context):
     
     response = requests.get(vid_url)
     response2 = requests.get(vid_url2)
-    #subs=json.loads(data)["items"][0]["statistics"]["subscriberCount"]
     
     provider.set_content_type(context, kodion.constants.content_type.VIDEOS)
     resource_manager = provider.get_resource_manager(context)
@@ -177,9 +176,7 @@ def _process_video_stats(provider, context):
         minute = datetime.minute
         
     dt_string = '%s/%s/%s @ %s:%s' % (datetime.month, datetime.day, datetime.year, hour, minute)
-    
-    #stats = []
-    #stats.extend(response.text)
+
     stats = response.json()
     channel_stats = response2.json()
     
@@ -187,8 +184,16 @@ def _process_video_stats(provider, context):
     like_count = "{:,}".format(stats['likes'])
     dislike_count = "{:,}".format(stats['dislikes'])
     context.log_debug('Channel Stats: %s' % channel_stats)
-    sub_count = str(channel_stats['items'][0]['statistics']['subscriberCount'])
+    c_stats = channel_stats['items'][0]['statistics']['subscriberCount']
     
+    if c_stats is int:
+        if (int(c_stats) < 1:
+            sub_count = 'No Subscribers or Hidden'
+        else:
+            sub_count = "{:,}".format(c_stats)
+    else:
+        sub_count = 'No Subscribers or Hidden'
+            
     vid_title = '[B]Video Title: %s[/B]\n' % snippet['title']
     ch_title = '[B]Channel: %s[/B]\n' % snippet.get('channelTitle', '')
     subscribers = '[B]Subscribers: %s[/B]\n' % sub_count
