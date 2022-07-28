@@ -67,18 +67,23 @@ def get_play_info(provider, context):
     like_count = num_fmt(l_count)
     d_count = int(stats['dislikes'])
     dislike_count = num_fmt(d_count)
+    context.log_debug('Channel Stats: %s' % channel_stats)
     c_stats = channel_stats['items'][0]['statistics']['subscriberCount']
+    context.log_debug('Sub Count: %s' % c_stats)
     
     try:
         c_stats2 = int(c_stats)
         context.log_debug('Sub count after int conversion: %s' % c_stats)
     except (TypeError, ValueError):
         sub_count = 'None/Hidden'
+        context.log_debug('This sub count is in the exception block')
     else:
         if c_stats2 > 0:
             sub_count = num_fmt(c_stats2)
+            context.log_debug('Sub count is greater than zero')
         else:
             sub_count = 'None/Hidden'
+            context.log_debug('Sub count is not greater than zero')
         
     subscribers = '\t[B]Subscribers: %s[/B]\t' % sub_count
     views = '[B]Views: [COLOR cyan]%s[/COLOR][/B]\t' % view_count 
