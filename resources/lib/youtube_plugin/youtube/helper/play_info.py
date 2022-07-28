@@ -74,7 +74,7 @@ def get_play_info(provider, context):
     try:
         c_stats2 = int(c_stats)
         context.log_debug('Sub count after int conversion: %s' % c_stats)
-    except (TypeError, ValueError):
+    except (TypeError, ValueError, KeyError):
         sub_count = 'None/Hidden'
         context.log_debug('This sub count is in the exception block')
     else:
