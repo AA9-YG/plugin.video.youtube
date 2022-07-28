@@ -188,10 +188,10 @@ def _process_video_stats(provider, context):
     
     try:
         c_stats2 = int(c_stats)
-        if c_stats2 < 1:
-            sub_count = 'No Subscribers or Hidden'
-        else:
+        if c_stats2 > 0:
             sub_count = "{:,}".format(c_stats)
+        else:
+            sub_count = 'No Subscribers or Hidden'
     except (TypeError, ValueError):
         sub_count = 'No Subscribers or Hidden'
             
