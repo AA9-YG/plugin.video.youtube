@@ -183,14 +183,14 @@ def _process_video_stats(provider, context):
     view_count = "{:,}".format(stats['viewCount'])
     like_count = "{:,}".format(stats['likes'])
     dislike_count = "{:,}".format(stats['dislikes'])
-    #context.log_debug('Channel Stats: %s' % channel_stats)
+    context.log_debug('Channel Stats: %s' % channel_stats)
     c_stats = channel_stats['items'][0]['statistics']['subscriberCount']
     context.log_debug('Sub Count: %s' % c_stats)
     
     try:
         c_stats2 = int(c_stats)
         context.log_debug('Sub count after int conversion: %s' % c_stats)
-    except:
+    except (TypeError, ValueError):
         sub_count = 'No Subscribers or Hidden'
         context.log_debug('This sub count is in the exception block')
     else:
