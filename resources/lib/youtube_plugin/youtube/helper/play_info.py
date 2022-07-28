@@ -35,9 +35,9 @@ def num_fmt(num):
     return '{:{fmt}}'.format(num, fmt=fmt)
 
 
-def get_play_info(provider, context):
-    video_id = context.get_param('video_id', '')
-    channel_id = context.get_param('channel_id', '')
+def get_play_info(provider, context, video_id, channel_id):
+    #video_id = context.get_param('video_id', '')
+    #channel_id = context.get_param('channel_id', '')
     channel_name = context.get_param('channel_name', '')
     key = "AIzaSyAT-LCjBFiQdRdYTO0XL312EIFx6SKm1lU"
     vid_url = 'https://returnyoutubedislikeapi.com/votes?videoId=' + str(video_id)
