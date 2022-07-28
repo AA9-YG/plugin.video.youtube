@@ -186,12 +186,13 @@ def _process_video_stats(provider, context):
     context.log_debug('Channel Stats: %s' % channel_stats)
     c_stats = channel_stats['items'][0]['statistics']['subscriberCount']
     
-    if c_stats is int:
-        if (int(c_stats) < 1:
+    try:
+        if (int(c_stats)) < 1:
             sub_count = 'No Subscribers or Hidden'
         else:
             sub_count = "{:,}".format(c_stats)
-    else:
+    except ValueError:
+        # Handle the exception
         sub_count = 'No Subscribers or Hidden'
             
     vid_title = '[B]Video Title: %s[/B]\n' % snippet['title']
