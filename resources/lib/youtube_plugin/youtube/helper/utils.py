@@ -364,18 +364,18 @@ def update_play_info(provider, context, video_id, video_item, video_stream, use_
     
     #stats = response.json()
     
-    #vid_title = '[B]Video Title: %s[/B]\n' % snippet['title']
-    #ch_title = '[B]Channel: %s[/B]\n' % snippet.get('channelTitle', '')
+    vid_title = '[B]Video Title: %s[/B]\n' % snippet['title']
+    ch_title = '[B]Channel: %s[/B]' % snippet.get('channelTitle', '')
     #views = '[B]Views: [COLOR cyan]%s[/COLOR][/B]\n' % stats['viewCount'] 
     #likes = '[B]Likes: [COLOR lime]%s[/COLOR][/B]\n' % stats['likes']
     #dislikes = '[B]Dislikes: [COLOR red]%s[/COLOR][/B]\n' % stats['dislikes']
     #date1 = '[B]Published Date: %s[/B]\n' % dt_string1
     #duration2 = '[B]Duration: %s[/B]\n' % dur_parse1
     #vid_id = '[B]Video ID: %s\n[/B]' % video_id
-    #description2 = '[B]\nDescription:[/B] %s' % kodion.utils.strip_html_from_text(snippet['description'])
+    description2 = '[B]\nDescription:[/B] %s' % kodion.utils.strip_html_from_text(snippet['description'])
     
     channel_id = snippet.get('channelId', '')
-    vid_info = play_info.get_play_info(provider, context, video_id, channel_id)          
+    vid_info = vid_title + ch_title + play_info.get_play_info(provider, context, video_id, channel_id) + description2        
 
     # plot
     channel_name = snippet.get('channelTitle', '')
