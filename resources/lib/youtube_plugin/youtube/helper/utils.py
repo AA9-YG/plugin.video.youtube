@@ -372,10 +372,10 @@ def update_play_info(provider, context, video_id, video_item, video_stream, use_
     #date1 = '[B]Published Date: %s[/B]\n' % dt_string1
     #duration2 = '[B]Duration: %s[/B]\n' % dur_parse1
     #vid_id = '[B]Video ID: %s\n[/B]' % video_id
-    description2 = '[B]\nDescription:[/B] %s' % kodion.utils.strip_html_from_text(snippet['description'])
+    #description2 = '[B]\nDescription:[/B] %s' % kodion.utils.strip_html_from_text(snippet['description'])
     
     channel_id = snippet.get('channelId', '')
-    vid_info = vid_title + ch_title + play_info.get_play_info(provider, context, video_id, channel_id) + description2        
+    vid_info = vid_title + ch_title + play_info.get_play_info(provider, context, video_id, channel_id)        
 
     # plot
     channel_name = snippet.get('channelTitle', '')
