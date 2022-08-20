@@ -85,11 +85,11 @@ def get_play_info(provider, context, video_id, channel_id):
             sub_count = 'None/Hidden'
             context.log_debug('Sub count is not greater than zero')
         
-    subscribers = '\t[B]Subscribers: %s[/B]\t' % sub_count
-    views = '[B]Views: [COLOR cyan]%s[/COLOR][/B]\t' % view_count 
-    likes = '[B]Likes: [COLOR lime]%s[/COLOR][/B]\t' % like_count
-    dislikes = '[B]Dislikes: [COLOR red]%s[/COLOR][/B]\t' % dislike_count
-    date = '[B]Date: %s[/B]\t' % dt_string
+    subscribers = '  |  [B]Subscribers: %s[/B]\n' % sub_count
+    views = '[B]Views: [COLOR cyan]%s[/COLOR][/B]  |  ' % view_count 
+    likes = '[B]Likes: [COLOR lime]%s[/COLOR]  |  [/B]' % like_count
+    dislikes = '[B]Dislikes: [COLOR red]%s[/COLOR][/B]\n' % dislike_count
+    date = '[B]Date: %s[/B]\n' % dt_string
     
     vid_info = subscribers + views + likes + dislikes + date
     
